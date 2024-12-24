@@ -315,5 +315,3 @@ tsconfig.json
 
 ### User
 - **index.routes.ts**: Defines the routes for user-related operations.
-#   s h r i _ r a d h e y _ b a c k e n d  
- 
