@@ -1,4 +1,4 @@
-![Shri Radhey Matrimonial Logo](./public/shri_logo.png)
+![Shri Radhey Matrimonial Logo](https://ibb.co/LQXs1T5)
 
 # Shri Radhey Matrimonial Backend Server
 
