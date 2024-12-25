@@ -4,7 +4,7 @@
   "description": "\"This is backend server for manage web application of matrimonal website (shri radhey)\"",
   "main": "index.js",
   "scripts": {
-    "dev": " tsx --watch index.ts",
+    "dev": " tsc",
     "start": "node index.js"
   },
   "keywords": [
