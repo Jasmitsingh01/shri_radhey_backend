@@ -1,4 +1,9 @@
 import Express from 'express';
+declare module 'express' {
+    interface Request {
+        user: any;
+    }
+}
 import auth from '../middleware/auth';
 import ALLclient from '../controllers/all';
 import CreateClient from '../controllers/create';

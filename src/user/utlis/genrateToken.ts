@@ -1,8 +1,7 @@
 import EmpolyeeUser from "../models/user.model";
 import e, { Request, Response } from "express";
-import RequestHandler from "../../utlis/request/requestHandler";
-import error from "../../utlis/error/Error";
-import setCookies from "../../utlis/cookies/setCokkies";
+import error from "../utlis/error/Error";
+import setCookies from "../utlis/cookies/setCokkies";
 
 const GenrateToken = async (req: Request, res: Response) => {
     try {

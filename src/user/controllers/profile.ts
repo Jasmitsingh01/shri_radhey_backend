@@ -1,7 +1,7 @@
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import { Request,Response,NextFunction } from "express";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 const Profile=RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
     try{
     

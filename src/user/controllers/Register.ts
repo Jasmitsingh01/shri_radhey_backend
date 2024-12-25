@@ -1,10 +1,10 @@
 import EmpolyeeUser from "../models/user.model";
 import { NextFunction, Request, Response } from "express";
-import RequestHandler from "../../utlis/request/requestHandler";
-import error from "../../utlis/error/Error";
+import RequestHandler from "../utlis/request/requestHandler";
+import error from "../utlis/error/Error";
 import { validationResult } from "express-validator";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 import GenrateToken from "../utlis/genrateToken";
 import fs from 'fs'
 import path from "path";
@@ -43,7 +43,7 @@ const Register = RequestHandler(async (req: Request, res: Response,next:NextFunc
             throw new error("User not saved", 500);
         }
         req.user=save;
-        await GenrateToken(req,res,next);
+        await GenrateToken(req,res);
      const Newuser={
         ...save.toObject(),
         password: undefined

@@ -1,10 +1,9 @@
-import error from "../../utlis/error/Error";
-import RequestHandler from "../../utlis/request/requestHandler";
-import { Request, Response, NextFunction } from "express";
+import error from "../utlis/error/Error";
+import RequestHandler from "../utlis/request/requestHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
-import ResponseHandler from "../../utlis/response/responseHandler";
-import ResponseData from "../../utlis/response/responseData";
-
+import { Request,Response ,NextFunction} from 'express'
 
 
 const updateField = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {

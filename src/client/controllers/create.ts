@@ -1,9 +1,9 @@
-import RequestHandler from "../../utlis/request/requestHandler";
-import { Request, Response, NextFunction } from "express";
+import error from "../utlis/error/Error";
+import RequestHandler from "../utlis/request/requestHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
-import error from "../../utlis/error/Error";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import { Request,Response ,NextFunction} from 'express'
 
 
 const CreateClient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {

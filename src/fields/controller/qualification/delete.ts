@@ -1,9 +1,9 @@
-import RequestHandler from "../../../utlis/request/requestHandler";
-import qualification from "../../models/qualification.model";
-import error from "../../../utlis/error/Error";
-import ResponseData from "../../../utlis/response/responseData";
-import ResponseHandler from "../../../utlis/response/responseHandler";
+import RequestHandler from "../../utlis/request/requestHandler";
+import error from "../../utlis/error/Error";
+import ResponseData from "../../utlis/response/responseData";
+import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
+import qualification from "../../models/qualification.model";
 
 
 const delqualification=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{

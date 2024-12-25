@@ -1,12 +1,12 @@
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import EmpolyeeUser from "../models/user.model";
 
-import error from "../../utlis/error/Error";
+import error from "../utlis/error/Error";
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
-import sendmail from "../../utlis/mailing/sendmail";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
+import sendmail from "../utlis/mailing/sendmail";
 const VeryfyEmail = RequestHandler(async (req: Request, res: Response) => {
     try {
         // Your code here

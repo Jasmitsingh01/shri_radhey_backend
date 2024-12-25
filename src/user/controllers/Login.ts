@@ -1,11 +1,11 @@
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import EmpolyeeUser from "../models/user.model";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 import { NextFunction, Request,Response } from "express";
 import GenrateToken from "../utlis/genrateToken";
 import { validationResult } from "express-validator";
-import error from "../../utlis/error/Error";
+import error from "../utlis/error/Error";
 const Login= RequestHandler(async (req:Request, res:Response,next:NextFunction) => { 
     
             try {

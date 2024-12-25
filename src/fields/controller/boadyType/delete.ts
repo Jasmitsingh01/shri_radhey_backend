@@ -1,8 +1,8 @@
-import RequestHandler from "../../../utlis/request/requestHandler";
+import RequestHandler from "../../utlis/request/requestHandler";
 import bodyType from "../../models/bodyType.model";
-import error from "../../../utlis/error/Error";
-import ResponseData from "../../../utlis/response/responseData";
-import ResponseHandler from "../../../utlis/response/responseHandler";
+import error from "../../utlis/error/Error";
+import ResponseData from "../../utlis/response/responseData";
+import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
 
 

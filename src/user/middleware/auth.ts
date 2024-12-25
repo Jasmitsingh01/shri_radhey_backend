@@ -2,9 +2,9 @@
 import jwt from 'jsonwebtoken';
 
 import EmpolyeeUser from '../models/user.model';
-import RequestHandler from '../../utlis/request/requestHandler';
+import RequestHandler from '../utlis/request/requestHandler';
 import { Request, Response, NextFunction } from 'express';
-import error from '../../utlis/error/Error';
+import error from '../utlis/error/Error';
 declare module 'express' {
     interface Request {
         user: any;

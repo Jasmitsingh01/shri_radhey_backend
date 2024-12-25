@@ -1,9 +1,10 @@
-import RequestHandler from "../../../utlis/request/requestHandler";
-import location from "../../models/location.model";
-import error from "../../../utlis/error/Error";
-import ResponseData from "../../../utlis/response/responseData";
-import ResponseHandler from "../../../utlis/response/responseHandler";
+import RequestHandler from "../../utlis/request/requestHandler";
+import error from "../../utlis/error/Error";
+import ResponseData from "../../utlis/response/responseData";
+import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
+import location from "../../models/location.model";
+
 
 
 export const updatecountry=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{

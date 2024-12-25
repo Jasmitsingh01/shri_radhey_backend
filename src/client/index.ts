@@ -10,7 +10,9 @@ const Port= process.env.PORT || 5002;
         try {
             await connectDB();
 
-            app.listen(Port, () =>{}   );
+            app.listen(Port, ()=>{
+                console.log(`client Server is running on http://localhost:${Port}`)
+            }   );
         } catch (error: any) {
             console.error(`Error: ${error?.message}`);
             process.exit(1);

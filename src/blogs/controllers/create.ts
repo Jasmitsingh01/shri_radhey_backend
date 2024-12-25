@@ -1,10 +1,10 @@
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import blog from "../models/blogs.model";
-import error from "../../utlis/error/Error";
+import error from "../utlis/error/Error";
 
 import { Request,Response,NextFunction} from 'express'
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 
 
 const createBlogs=RequestHandler(async (req:Request,res:Response,next:NextFunction)=>{

@@ -1,7 +1,7 @@
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import { Request, Response } from "express";
 import EmpolyeeUser from "../models/user.model";
-import setCookies from "../../utlis/cookies/setCokkies";
+import setCookies from "../utlis/cookies/setCokkies";
 
 const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
     try {
@@ -21,7 +21,10 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
         if (!save) {
             throw new Error("Token not saved");
         }
-        setCookies(res,  access_token);
+        setCookies(res,  {
+            access_token:access_token,
+            refresh_token:refresh_token
+        });
 
     }
     catch (err) {

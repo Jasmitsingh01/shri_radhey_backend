@@ -1,9 +1,9 @@
-import RequestHandler from "../../../utlis/request/requestHandler";
-import occupation from "../../models/occupation";
-import error from "../../../utlis/error/Error";
-import ResponseData from "../../../utlis/response/responseData";
-import ResponseHandler from "../../../utlis/response/responseHandler";
+import RequestHandler from "../../utlis/request/requestHandler";
+import error from "../../utlis/error/Error";
+import ResponseData from "../../utlis/response/responseData";
+import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
+import occupation from "../../models/occupation";
 
 
 const deloccupation=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{

@@ -1,10 +1,9 @@
-import RequestHandler from "../../../utlis/request/requestHandler";
-import ethinicity from "../../models/ethinicity.model";
-import error from "../../../utlis/error/Error";
-import ResponseData from "../../../utlis/response/responseData";
-import ResponseHandler from "../../../utlis/response/responseHandler";
+import RequestHandler from "../../utlis/request/requestHandler";
+import error from "../../utlis/error/Error";
+import ResponseData from "../../utlis/response/responseData";
+import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
-
+import ethinicity from "../../models/ethinicity.model";
 
 export const updateregilion=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{
 
