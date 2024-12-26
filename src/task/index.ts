@@ -4,7 +4,11 @@ import connectDB from "./db";
 config()
 const Port= process.env.PORT ||  5001;
 
-
+declare module 'express' {
+    interface Request {
+        user: any;
+    }
+}
 (
     async () => {
         try {

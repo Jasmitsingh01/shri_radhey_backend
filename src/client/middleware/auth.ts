@@ -1,7 +1,7 @@
 import axios  from "axios";
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import { Request ,Response,NextFunction } from "express";
-import error from "../../utlis/error/Error";
+import error from "../utlis/error/Error";
 
 /**
  * Middleware to handle authentication.

@@ -1,20 +1,37 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# Use the official Node.js image as the base image
+FROM ubuntu
 
-# Set the working directory
-WORKDIR  /user
+WORKDIR /usr/app
 
-# Copy package.json and package-lock.json
-COPY package*.json .
+RUN apt-get update
 
-# Install dependencies
+
+
+RUN apt-get install nodejs -y
+
+
+RUN apt-get  install npm -y
+
+RUN apt-get upgrade -y
+
+# Copy the rest of the application code to the working directory
+  
+
+COPY ./ /usr/app
+
+
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
+RUN npm i --save-dev @types/nodemailer  @types/express  @types/express-http-proxy @types/jsonwebtoken @types/multer  @types/node @types/bcryptjs @types/cookie-parser
 
-# Expose the port the app runs on
+RUN npm run build
+
 EXPOSE 9001
 
-# Define the command to run the app
-CMD ["npx tsx --watch", "index.ts"]
+
+ENTRYPOINT [ "node","dist/index.js" ]
+
+
+
+
+

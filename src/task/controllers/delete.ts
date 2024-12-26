@@ -1,9 +1,9 @@
-import RequestHandler from "../../utlis/request/requestHandler";
+import RequestHandler from "../utlis/request/requestHandler";
 import { Request,Response,NextFunction } from "express";
 import Task from "../models/task.model";
-import error from "../../utlis/error/Error";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import error from "../utlis/error/Error";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 
 
 const Deltask=RequestHandler(async (req: Request, res: Response, next: NextFunction) => {

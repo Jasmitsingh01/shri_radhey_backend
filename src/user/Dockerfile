@@ -1,40 +1,36 @@
 # Use the official Node.js image as the base image
 FROM ubuntu
 
+WORKDIR /usr/app
 
+RUN apt-get update
+
+
+
+RUN apt-get install nodejs -y
+
+
+RUN apt-get  install npm -y
+
+RUN apt-get upgrade -y
 
 # Copy the rest of the application code to the working directory
   
-RUN mkdir user_service
 
-COPY controllers user_service/controllers
-
-COPY Database user_service/Database
+COPY ./ /usr/app
 
 
-COPY middleware user_service/middleware
+RUN npm install
 
-COPY models user_service/models
+RUN npm i --save-dev @types/nodemailer  @types/express  @types/express-http-proxy @types/jsonwebtoken @types/multer  @types/node @types/bcryptjs @types/cookie-parser
 
-COPY routes user_service/routes
-
-COPY utlis/* user_service/utlis
-
-
-COPY package.json user_service/
-
-COPY package-lock.json user_service/
-
-COPY tsconfig.json user_service/
-
-COPY .env user_service/
-
-RUN npm install 
-
-RUN npx tsc
+RUN npm run build
 
 EXPOSE 9000
-RUN npm start
+
+
+ENTRYPOINT [ "node","dist/index.js" ]
+
 
 
 

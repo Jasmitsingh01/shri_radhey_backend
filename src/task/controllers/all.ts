@@ -1,7 +1,7 @@
-import error from "../../utlis/error/Error";
-import RequestHandler from "../../utlis/request/requestHandler";
-import ResponseData from "../../utlis/response/responseData";
-import ResponseHandler from "../../utlis/response/responseHandler";
+import error from "../utlis/error/Error";
+import RequestHandler from "../utlis/request/requestHandler";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 import Task from "../models/task.model";
 import { Request,Response ,NextFunction} from 'express'
 
