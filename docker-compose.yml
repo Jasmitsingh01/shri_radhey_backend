@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  user_image:
+    build: ./src/user/
+    container_name: user_container
+    ports:
+      - "9000:9000"
+    environment:
+      - ENV=development
+
+  task_image:
+    build: ./src/task/
+    container_name: task_container
+    ports:
+      - "9001:9001"
+    environment:
+      - ENV=development
+
+  field_image:
+     build: ./src/fields/
+     container_name: field_container
+     ports:
+      - "9003:9003"
+     environment:
+      - ENV=development
+    
+  client_image:
+     build: ./src/client/
+     container_name: client_container
+     ports:
+      - "9002:9002"
+     environment:
+      - ENV=development
+  blog_image:
+     build: ./src/blogs/
+     container_name: blog_container
+     ports:
+      - "9004:9004"
+     environment:
+      - ENV=development

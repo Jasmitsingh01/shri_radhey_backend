@@ -4,8 +4,12 @@
   "description": "\"This is backend server for manage web application of matrimonal website (shri radhey)\"",
   "main": "index.js",
   "scripts": {
-    "dev": " tsc",
-    "start": "node index.js"
+    "build": " tsc",
+    "start": "npx concurrently \"npm run start-backend\" \"npm run start-docker\" ",
+    "start-backend": "node dist/index.js",
+    "start-docker": "docker-compose up",
+      "dev": "npx concurrently \"npm run dev-backend\" \"npm run start-docker\"",
+    "dev-backend": "npx tsc --wacth index.js"
   },
   "keywords": [
     "\"",
@@ -31,6 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
+    "concurrently": "^9.1.0",
     "typescript": "^5.7.2"
   }
 }

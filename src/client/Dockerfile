@@ -1,7 +1,7 @@
 # Use the official Node.js image as the base image
 FROM ubuntu
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 RUN apt-get update
 
@@ -17,8 +17,7 @@ RUN apt-get upgrade -y
 # Copy the rest of the application code to the working directory
   
 
-COPY ./ /usr/app
-
+COPY .  .
 
 RUN npm install
 
