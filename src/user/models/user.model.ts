@@ -70,7 +70,11 @@ const empolyee = new Schema({
 
         emp_role: {
             type: String,
-            required: true
+        },
+        is_approved:{
+            type:Boolean,
+            required: true,
+            default: false
         },
         is_active: {
             type: Boolean,
@@ -89,8 +93,8 @@ const empolyee = new Schema({
         },
         code_email: {
             type: String,
-            required: true,
-            default: 'Please verify your email'
+            default: 'Please verify your email',
+            expries:'3min'
         },
         code_phone: {
             type: String,
@@ -101,23 +105,32 @@ const empolyee = new Schema({
     address: {
         fulladdress: {
             type: String,
-            required: true
+            required: true,
+            default:"Please Enter Your Address"
         },
         city: {
             type: String,
-            required: true
+            required: true,
+            default:"Please Enter Your City"
+
         },
         state: {
             type: String,
-            required: true
+            required: true,
+            default:"Please Enter Your State"
+
         },
         country: {
             type: String,
-            required: true
+            required: true,
+            default:"Please Enter Your Country"
+
         },
         pincode: {
             type: String,
-            required: true
+            required: true,
+            default:"Please Enter Your Postal/Zip Code"
+
         }
     },
 

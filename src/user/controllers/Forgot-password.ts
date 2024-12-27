@@ -19,7 +19,14 @@ const forgotPassword = RequestHandler(async (req:Request, res:Response) => {
         if (!user) {
             throw new error("User not found", 404);
         }
-        const Data= new ResponseData('',200,'Verfication Code Sent to your email');
+        const otp = Math.floor(1000 + Math.random() * 9000).toString();
+        user.empoylee_deatils.code_email=otp;
+         await user.save({validateBeforeSave:false});
+        sendmail(user.contact_Details.email,'Verification Code For Reset Your Password',otp)
+
+        const Data= new ResponseData({
+            email:user.contact_Details.email
+        },200,'Verfication Code Sent to your email');
         ResponseHandler(res,Data,200);
 
         

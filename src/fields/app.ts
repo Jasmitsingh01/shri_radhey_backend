@@ -1,8 +1,31 @@
 import Exprees from 'express'
 import cookiePaser from 'cookie-parser'
+import Boadyrouter from './routes/boadyType';
+import complexionRouter from './routes/complexion';
+import ethinicityRouter from './routes/ethinicity';
+import locationRouter from './routes/locations';
+import OccupationRouter from './routes/occupation';
+import qualificationRouter from './routes/qualification';
 
-const app=Exprees();
+const app = Exprees();
 app.use(Exprees.json());
 app.use(cookiePaser())
+
+app.use('/bodytype', Boadyrouter)
+
+app.use('/complexion', complexionRouter)
+
+
+app.use('/ethinicty', ethinicityRouter);
+
+
+app.use('/location', locationRouter);
+
+app.use('/occupation', OccupationRouter)
+
+app.use('/qualification', qualificationRouter)
+
+
+
 
 export default app;

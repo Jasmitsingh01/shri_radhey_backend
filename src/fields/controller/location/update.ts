@@ -68,6 +68,9 @@ export const updatestate=RequestHandler(async(req:Request,res:Response , next:Ne
     } catch (error) {
 
         console.error(error)
+        const response= new ResponseData(error,(error as any).status,(error as any).message);
+
+        ResponseHandler(res,response,(error as any).status)
         
     }
 })
@@ -99,6 +102,9 @@ export const updatecity=RequestHandler(async(req:Request,res:Response , next:Nex
     } catch (error) {
 
         console.error(error)
+        const response= new ResponseData(error,(error as any).status,(error as any).message);
+
+        ResponseHandler(res,response,(error as any).status)
         
     }
 })

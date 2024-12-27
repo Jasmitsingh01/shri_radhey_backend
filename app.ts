@@ -1,8 +1,14 @@
 import  Express  from "express";
 import Proxy from  'express-http-proxy'
+import Cors from 'cors'
 const app = Express();
 
 app.use(Express.json());
+
+app.use(Cors({
+    origin:'http://localhost:3000',
+    credentials: true
+}));
 
 app.use('/api/user',Proxy('http://localhost:9000'))
 

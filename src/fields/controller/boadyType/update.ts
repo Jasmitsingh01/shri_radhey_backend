@@ -7,7 +7,7 @@ import { NextFunction, Request, Response } from "express";
 
 
 
-const Allbodytype=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{
+const updatebodytype=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{
 
 
     try {
@@ -36,6 +36,9 @@ const Allbodytype=RequestHandler(async(req:Request,res:Response , next:NextFunct
     } catch (error) {
 
         console.error(error)
+        const response= new ResponseData(error,(error as any).status,(error as any).message);
+
+        ResponseHandler(res,response,(error as any).status)
         
     }
 })
@@ -44,4 +47,4 @@ const Allbodytype=RequestHandler(async(req:Request,res:Response , next:NextFunct
 
 
 
-export default Allbodytype
+export default updatebodytype
