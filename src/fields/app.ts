@@ -1,4 +1,4 @@
-import Exprees from 'express'
+import express from 'express'
 import cookiePaser from 'cookie-parser'
 import Boadyrouter from './routes/boadyType';
 import complexionRouter from './routes/complexion';
@@ -7,8 +7,9 @@ import locationRouter from './routes/locations';
 import OccupationRouter from './routes/occupation';
 import qualificationRouter from './routes/qualification';
 
-const app = Exprees();
-app.use(Exprees.json());
+const app = express();
+
+app.use(express.json());
 app.use(cookiePaser())
 
 app.use('/bodytype', Boadyrouter)

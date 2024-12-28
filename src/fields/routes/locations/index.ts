@@ -1,16 +1,18 @@
 import  Express  from "express";
-import Alllocation from "../../controller/location/all";
+import {Allcity,Allstate,Allcountry} from "../../controller/location/all";
 import { Createcity, CreateCountry, Createstate } from "../../controller/location/create";
 import { updatecity, updatecountry, updatestate } from "../../controller/location/update";
-import dellocation from "../../controller/location/delete";
+import { delcity,delcountry,delstate} from "../../controller/location/delete";
 
 
 const locationRouter = Express.Router();
 
 
-locationRouter.get('/', Alllocation)
+locationRouter.get('/country', Allcountry)
+locationRouter.get('/state', Allstate)
+locationRouter.get('/city', Allcity)
 
-locationRouter.post('/create/country', CreateCountry)
+locationRouter.post('/create/country', CreateCountry as any)
 locationRouter.post('/create/state', Createstate)
 locationRouter.post('/create/city', Createcity)
 
@@ -23,7 +25,11 @@ locationRouter.put('/update/city', updatecity)
 
 
 
-locationRouter.delete('/delete/country', dellocation)
+locationRouter.delete('/delete/country', delcountry)
+locationRouter.delete('/delete/city', delcity)
+locationRouter.delete('/delete/state', delstate)
+
+
 
 
 

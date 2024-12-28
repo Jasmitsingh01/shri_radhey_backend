@@ -3,7 +3,7 @@ import error from "../../utlis/error/Error";
 import ResponseData from "../../utlis/response/responseData";
 import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
-import ethinicity from "../../models/ethinicity.model";
+import ethinicity from "../../models/religion.model";
 
 
 export const CreateReligion=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{
@@ -92,6 +92,9 @@ export  const CreateGotra=RequestHandler(async(req:Request,res:Response , next:N
     } catch (error) {
 
         console.error(error)
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
+
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
         
     }
 })

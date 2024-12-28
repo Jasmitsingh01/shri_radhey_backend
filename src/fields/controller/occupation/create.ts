@@ -11,6 +11,7 @@ const CreateOccupation=RequestHandler(async(req:Request,res:Response , next:Next
 
     try {
         const {occupation:occupation_data}=req.body;
+
         if(!occupation_data){
             throw new error('Please Provide Data to create',400)
         }
@@ -31,9 +32,9 @@ const CreateOccupation=RequestHandler(async(req:Request,res:Response , next:Next
     } catch (error) {
 
         console.error(error)
-        const response= new ResponseData(error,(error as any).status,(error as any).message);
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
 
-        ResponseHandler(res,response,(error as any).status)
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
         
     }
 })

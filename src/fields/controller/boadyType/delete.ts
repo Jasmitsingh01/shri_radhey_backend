@@ -4,7 +4,7 @@ import error from "../../utlis/error/Error";
 import ResponseData from "../../utlis/response/responseData";
 import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
-
+import mongoose from "mongoose";
 
 const delBodyType=RequestHandler(async(req:Request,res:Response , next:NextFunction)=>{
 
@@ -17,7 +17,10 @@ const delBodyType=RequestHandler(async(req:Request,res:Response , next:NextFunct
             throw new error('Invalid Request',400)
         }
 
-        const delBody= await bodyType.findByIdAndDelete(_id);
+                const id =new mongoose.Types.ObjectId(`${_id}`)
+
+
+        const delBody= await bodyType.findByIdAndDelete(id);
 
         if(!delBody){
             throw new error("Failed To Delete Body type",500)
@@ -30,9 +33,9 @@ const delBodyType=RequestHandler(async(req:Request,res:Response , next:NextFunct
     } catch (error) {
 
         console.error(error)
-        const response= new ResponseData(error,(error as any).status,(error as any).message);
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
 
-        ResponseHandler(res,response,(error as any).status)
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
     }
 })
 

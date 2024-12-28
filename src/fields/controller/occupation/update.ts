@@ -12,7 +12,10 @@ const updateoccupation=RequestHandler(async(req:Request,res:Response , next:Next
     try {
 
         const {_id}=req.query;
-        const {complexion:occupation_type}=req.body;
+        const {occupation:occupation_type}=req.body;
+
+
+
 
         if(!_id){
             throw new error("Invaild request",400);
@@ -35,9 +38,9 @@ const updateoccupation=RequestHandler(async(req:Request,res:Response , next:Next
     } catch (error) {
 
         console.error(error)
-        const response= new ResponseData(error,(error as any).status,(error as any).message);
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
 
-        ResponseHandler(res,response,(error as any).status)
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
     }
 })
 

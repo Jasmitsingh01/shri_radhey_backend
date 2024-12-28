@@ -11,13 +11,13 @@ const CreateBodytype=RequestHandler(async(req:Request,res:Response , next:NextFu
 
 
     try {
-        const {body_type}=req.body;
-        if(!body_type){
+        const {bodytype}=req.body;
+        if(!bodytype){
             throw new error('Please Provide Data to create',400)
         }
 
         const newType= new bodyType({
-            body_type:body_type
+            body_type:bodytype
         });
         const save= await newType.save();
         if(!save){
@@ -31,9 +31,9 @@ const CreateBodytype=RequestHandler(async(req:Request,res:Response , next:NextFu
     } catch (error) {
 
         console.error(error)
-        const response= new ResponseData(error,(error as any).status,(error as any).message);
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
 
-        ResponseHandler(res,response,(error as any).status)
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
     }
 })
 
