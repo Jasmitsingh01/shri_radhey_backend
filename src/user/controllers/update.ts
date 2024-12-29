@@ -14,7 +14,19 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
         const Data = req.body
         const user = req.user;
         const update = await EmpolyeeUser.findByIdAndUpdate(user?._id, {
-            ...Data
+            fullname:{
+                firstName:Data?.fullname?.fullname?.split(' ')[0],
+                lastName:Data?.fullname?.fullname?.split(' ')[1]
+            },
+            contact_Details:{
+                phone:Data?.contact?.phone,
+                email:Data?.contact?.email
+            },
+            gender:Data?.gender,
+            profile_image:Data?.profile_image,
+            address:{
+                fulladdress:Data?.address
+            }
         })
         if (!update) {
             throw new error("Failed to update Empolyee", 500);
@@ -27,7 +39,9 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
     } catch (error) {
 
         console.error(error)
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
 
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
     }
 })
 

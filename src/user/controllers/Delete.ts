@@ -24,6 +24,9 @@ const Userdelete = RequestHandler(async (req: Request, res: Response, next: Next
     } catch (error) {
 
         console.error(error)
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
+
+        ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
 
     }
 })

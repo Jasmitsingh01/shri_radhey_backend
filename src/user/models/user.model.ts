@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import Jwt from "jsonwebtoken";
 import Bycrpt from "bcryptjs";
 export interface EmpUser {
-
+    profile_pic:string,
     fullname: {
         firstName: string,
         lastName: string
@@ -132,6 +132,9 @@ const empolyee = new Schema({
             default:"Please Enter Your Postal/Zip Code"
 
         }
+    },
+    gender:{
+        type:String
     },
 
     access_token: {

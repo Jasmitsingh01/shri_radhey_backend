@@ -11,6 +11,9 @@ const Profile=RequestHandler(async(req:Request,res:Response,next:NextFunction)=>
     }
     catch(err){
         console.error(err);
+        const response = new ResponseData(err, (err as any)?.statusCode , (err as any)?.message );
+
+        ResponseHandler(res,response , (err as any)?.statusCode);
     }
 })
 export default Profile;

@@ -11,6 +11,8 @@ import Userupdate from '../controllers/update';
 import refresh_Token from '../utlis/refresh_Token';
 import Userall from '../controllers/all_user';
 import VeryfyEmail from '../utlis/verifyEmail';
+import ApprovedEmp from '../controllers/ApprovedEmployee';
+import ResendCode from '../controllers/ResendCode';
 
 const router=express.Router();
 
@@ -26,6 +28,9 @@ router.patch('/reset-password',[body('email').isEmail(),body('password').isLengt
 
 router.patch('/refresh-token',refresh_Token as any);
 
+router.patch('/resend-code',ResendCode as any);
+
+router.post('/approved-user', auth as any  ,ApprovedEmp as any)
 
 router.post('/verfiy-email',[body('email').isEmail(),body('code').isLength({min:4,max:4})],VeryfyEmail as any)
 

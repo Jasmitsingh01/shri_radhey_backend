@@ -18,11 +18,22 @@ export const delcountry=RequestHandler(async(req:Request,res:Response , next:Nex
         }
 
         const delBody= await country.findByIdAndDelete(_id);
-
+        const delstate= await state.deleteMany({
+            country:_id
+        });
+        const  delcity= await city.deleteMany({
+            country:_id
+        })
+      if(!delstate){
+        throw new error("Failed To Delete location",500)
+      }
+      if(!delcity){
+        throw new error("Failed To Delete location",500)
+      }
         if(!delBody){
             throw new error("Failed To Delete location",500)
         }
-
+ 
        const response= new ResponseData(delBody,200,'location Deleted Successfully');
 
        ResponseHandler(res,response,200)
@@ -50,7 +61,12 @@ export  const delstate=RequestHandler(async(req:Request,res:Response , next:Next
         }
 
         const delBody= await state.findByIdAndDelete(_id);
-
+        const delcity=await city.deleteMany({
+            state:_id
+        })
+        if(!delcity){
+            throw new error("Failed To Delete location",500)
+          }
         if(!delBody){
             throw new error("Failed To Delete location",500)
         }
@@ -80,7 +96,7 @@ export const delcity=RequestHandler(async(req:Request,res:Response , next:NextFu
             throw new error('Invalid Request',400)
         }
 
-        const delBody= await country.findByIdAndDelete(_id);
+        const delBody= await city.findByIdAndDelete(_id);
 
         if(!delBody){
             throw new error("Failed To Delete location",500)

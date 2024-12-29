@@ -34,6 +34,9 @@ const forgotPassword = RequestHandler(async (req:Request, res:Response) => {
     }
     catch (err) {
         console.error(err);
+        const response = new ResponseData(err, (err as any)?.statusCode , (err as any)?.message );
+
+        ResponseHandler(res,response , (err as any)?.statusCode);
     }
 }
 );

@@ -3,7 +3,7 @@ import error from "../../utlis/error/Error";
 import ResponseData from "../../utlis/response/responseData";
 import ResponseHandler from "../../utlis/response/responseHandler";
 import { NextFunction, Request, Response } from "express";
-import ethinicity from "../../models/religion.model";
+import religion from "../../models/religion.model";
 import caste from "../../models/caste.model";
 import gotra from "../../models/gotra.model";
 
@@ -19,7 +19,19 @@ export const delreligion=RequestHandler(async(req:Request,res:Response , next:Ne
             throw new error('Invalid Request',400)
         }
 
-        const delBody= await ethinicity.findByIdAndDelete(_id);
+        const delBody= await religion.findByIdAndDelete(_id);
+        const delcaste= await caste.deleteMany({
+            religion:_id
+        })
+        const delgotra= await gotra.deleteMany({
+            religion:_id
+        })
+        if(!delcaste){
+            throw new error("Failed To Delete ethinicity",500)
+        }
+        if(!delgotra){
+            throw new error("Failed To Delete ethinicity",500)
+        }
 
         if(!delBody){
             throw new error("Failed To Delete ethinicity",500)
@@ -51,7 +63,12 @@ export const delcaste=RequestHandler(async(req:Request,res:Response , next:NextF
         }
 
         const delBody= await caste.findByIdAndDelete(_id);
-
+        const delgotra= await gotra.deleteMany({
+            caste:_id
+        })
+        if(!delgotra){
+            throw new error("Failed To Delete ethinicity",500)
+        }
         if(!delBody){
             throw new error("Failed To Delete ethinicity",500)
         }

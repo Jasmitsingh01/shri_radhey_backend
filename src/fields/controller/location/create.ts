@@ -14,7 +14,6 @@ export const CreateCountry=RequestHandler(async(req:Request,res:Response , next:
 
     try {
         const {country:data}=req.body;
-        console.log(req.body)
         if(!country){
             throw new error('Please Provide Data to create',400)
         }

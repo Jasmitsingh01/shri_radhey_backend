@@ -16,6 +16,8 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
             throw new error("Validation Error", 400);
         }
         const { name, email, password, role, phone, address, city, state, zip, country } = req.body;
+
+
         // for gentrating otp
         const otp = Math.floor(1000 + Math.random() * 9000).toString();
         const user = new EmpolyeeUser({
@@ -77,6 +79,9 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
     }
     catch (err) {
         console.error(err);
+        const response= new ResponseData(err,(err as any).statusCode || (err as any).status || 500,(err as any).message);
+
+        ResponseHandler(res,response,(err as any).statusCode || (err as any).status || 500)
     }
 
 
