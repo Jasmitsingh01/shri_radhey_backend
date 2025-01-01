@@ -22,7 +22,7 @@ router.post('/create', Register as any);
 
 router.post('/login', [body('email').isEmail(),body('password').isLength({min:6})],Login as any);
 
-router.post('/forgot-password',[body('email').isEmail()],forgotPassword as any);
+router.post('/forgot-password',forgotPassword as any);
 
 router.patch('/reset-password',[body('email').isEmail(),body('password').isLength({min:6}),body('code').isLength({min:4,max:4})],ResetPassword as any);
 

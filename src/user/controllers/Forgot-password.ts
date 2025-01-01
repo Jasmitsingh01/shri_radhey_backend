@@ -14,6 +14,7 @@ const forgotPassword = RequestHandler(async (req:Request, res:Response) => {
         if (!errors.isEmpty()) {
             throw new error("Validation Error", 400);
         }
+        console.log(req.body)
         const { email } = req.body;
         const user = await EmpolyeeUser.findOne({ "contact_Details.email": email });
         if (!user) {

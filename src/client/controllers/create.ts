@@ -3,25 +3,29 @@ import RequestHandler from "../utlis/request/requestHandler";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
+import fs from 'fs'
 import { Request,Response ,NextFunction} from 'express'
 
 
 const CreateClient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    console.log(req.file, req.body)
     try {
 
 
+     
 
+        const { fullname, contact, height, gender, birth, ethinicity, email , fulladdreess, qualification, occupation, member, profile_image, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income } = req.body;
 
-        const { fullname, contact, height, gender, birth, ethinicity, fulladdreess, qualification, occupation, member, profile_image, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income } = req.body;
-
-
-        if (!fullname.firstname || !contact.phone || !contact.email || !height.value || !gender || !birth.date || !birth.place || !birth.time || !ethinicity.religion || !ethinicity.caste || !ethinicity.gotra || !fulladdreess.country || !fulladdreess.state || !fulladdreess.city || !fulladdreess.pincode || !qualification.qualification || !occupation.occupation || !disablitiy || !blood_group || !marital_status || !body_type || !complexion || !use_specatils.use || !family.father.name || !family.mother.name || !family.type || !member.stauts || !member.expries_member || !member.package.name || !member.package.amount_paid || !member.budget || !member.source || !meal.diet || !meal.smoking || !meal.drinking || !abroad.is_willing || !belive_in_patri || !open_for_other_caste || !income.family || !income.personal) {
+         
+        
+        if (!fullname?.firstname || !contact?.phone || !email || !height?.value || !gender || !birth?.date || !birth?.place || !birth?.time || !ethinicity?.religion || !ethinicity?.caste || !ethinicity?.gotra || !fulladdreess?.country || !fulladdreess?.state || !fulladdreess?.city || !fulladdreess?.pincode || !qualification?.qualification || !occupation?.occupation  || !blood_group || !marital_status || !body_type || !complexion || !use_specatils?.use || !family?.father.name || !family?.mother.name || !member?.stauts || !member?.expries || !member?.package.name || !member?.package?.amount_paid || !member?.budget || !member?.source || !meal?.diet || !meal?.smoking || !meal?.drinking || !abroad?.is_willing || !belive_in_patri || !open_for_other_caste || !income?.family || !income?.personal) {
             throw new error('some fields are missing ', 400)
         }
 
         // const { file } = req.files;
         const { firstname, lastname } = fullname;
-        const { phone, whatsaap_number, email } = contact;
+        const { phone, whatsaap_number } = contact;
         const { value, unit } = height;
         const { date, place, time } = birth;
         const { religion, caste, gotra } = ethinicity;
@@ -99,7 +103,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
             complexion,
             body_type,
             use_specatils: {
-                use,
+                use:use!=='YES'? false :true,
                 power
             },
             family: {
@@ -120,11 +124,11 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 drinking,
             },
             abroad: {
-                is_willing,
+                is_willing:is_willing!=='YES'? false :true,
                 mention_country
             },
-            belive_in_patri,
-            open_for_other_caste,
+            belive_in_patri:belive_in_patri!=='YES'? false :true,
+            open_for_other_caste:open_for_other_caste!=='YES'? false :true,
             income: {
                 family: family_income,
                 personal: personal_income
@@ -144,6 +148,9 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         ResponseHandler(res, response, 201)
     } catch (error) {
         console.error(error)
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
+
+    ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
 
     }
 

@@ -2,6 +2,8 @@ import axios  from "axios";
 import RequestHandler from "../utlis/request/requestHandler";
 import { Request ,Response,NextFunction } from "express";
 import error from "../utlis/error/Error";
+import ResponseData from "../utlis/response/responseData";
+import ResponseHandler from "../utlis/response/responseHandler";
 
 /**
  * Middleware to handle authentication.
@@ -36,7 +38,10 @@ const auth =RequestHandler( async ( req : Request, res :Response, next :NextFunc
      
   }
   catch(err){
-    console.error(err)
+    console.error(err) ;
+    const response= new ResponseData(err,(err as any).statusCode || (err as any).status || 500,(err as any).message);
+
+    ResponseHandler(res,response,(err as any).statusCode || (err as any).status || 500)
   }
 })
 

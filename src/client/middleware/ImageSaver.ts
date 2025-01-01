@@ -4,7 +4,7 @@ import { Request } from "express";
 
 const StorageOption=multer.diskStorage({
   destination(req, file, callback) {
-     callback(null,'../public/images/user') // set the destination
+     callback(null,'../public/images/client') // set the destination
   },
   filename(req, file, callback) {
     callback(null,Date.now()+file.originalname)

@@ -159,8 +159,8 @@ empolyee.pre<EmpUser>("save", async function (next) {
     next();
 });
 
-empolyee.methods.isPasswordMatch = function (password: string) {
-    return Bycrpt.compareSync( password,this.password );
+empolyee.methods.isPasswordMatch =async function (password: string) {
+    return await Bycrpt.compare( password,this.password );
 };
 
 empolyee.methods.generateAccessToken = function () {

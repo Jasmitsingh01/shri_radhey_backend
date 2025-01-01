@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npx concurrently \"npm run build-backed\" \"npm run build-docker\"",
-    "build-backed":"tsc",
-    "build-docker":"docker compose up --build",
+    "build-backed": "tsc",
+    "build-docker": "docker compose up --build",
     "start": "npx concurrently \"npm run start-backend\" \"npm run start-docker\" ",
     "start-backend": "node dist/index.js",
     "start-docker": "docker-compose up",
@@ -25,6 +25,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
