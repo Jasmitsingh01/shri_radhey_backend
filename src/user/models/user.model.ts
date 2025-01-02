@@ -164,14 +164,14 @@ empolyee.methods.isPasswordMatch =async function (password: string) {
 };
 
 empolyee.methods.generateAccessToken = function () {
-    return Jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY as string, {
-        expiresIn: "15m",
+    return Jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY_Access_Token as string, {
+        expiresIn: "10m",
     });
 };
 
 empolyee.methods.generateRefreshToken = function () {
-    return Jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY as string, {
-        expiresIn: "7d",
+    return Jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY_Refreseh_Token as string, {
+        expiresIn: "30m",
     });
 };
 

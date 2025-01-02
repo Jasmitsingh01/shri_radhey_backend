@@ -13,7 +13,7 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
             throw new error("Token not found",400);
         }
 
-        const verfiy= jwt.verify(token,process.env.JWT_SECRET_KEY as string);
+        const verfiy= jwt.verify(token,process.env.JWT_SECRET_KEY_Refreseh_Token as string);
          if(!verfiy){
             throw new error('Invalid token',402)
          }
