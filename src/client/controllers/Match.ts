@@ -8,41 +8,38 @@ import { Request, Response, NextFunction } from 'express'
 const SimilarClient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-     const query = req.query;
+        const query = req.query;
 
-     const {ethinicity,qualification,occupation,meal,member} = req.body;
-     if(!ethinicity || !qualification || !occupation || !meal || !member){
-        throw new error('All fields are required',400)
-     }
-
-     if (!query) {
-        throw new error( 'Query is required',400);
+        const { ethinicity, qualification, occupation, meal, member, gender, complexion, body_type, marital_status } = req.body;
+        if (!ethinicity && !qualification && !occupation && !meal && !member && !gender && !complexion && !body_type && !marital_status) {
+            throw new error('All fields are required', 400)
         }
-        let searchCriteria:any = {}
-        if (meal.drinking) {
-            if (!searchCriteria.meal) {
-                searchCriteria.meal = {};
-            }
-            searchCriteria.meal = meal;
+
+        if (!query) {
+            throw new error('Query is required', 400);
         }
 
 
         let clients = await client.find({
-            $text: {
-                $search:  meal?.drinking + ' ' + meal?.smoking,
-            }
-        },{
-            score: { $meta: "textScore" }
-        }).sort({
-            score: { $meta: "textScore" }, // Sort by score
+            $or: [
+                { ethinicity: ethinicity },
+                { qualification: qualification },
+                { occupation: occupation },
+                { meal: meal },
+                { member: member },
+                { gender: gender },
+                { complexion: complexion },
+                { body_type: body_type },
+                { marital_status: marital_status }
+            ]
+
 
         });
-        const maxScore = clients.length > 0 && clients[0].score !== undefined ? clients[0].score : 1;
-        const usersWithMatchPercentage = clients.map((user) => ({
-          ...user.toObject(),
-          matchPercentage: user.score ? ((user.score / maxScore) * 100).toFixed(2) : '0.00',
-        }));
-        console.log(usersWithMatchPercentage)
+        if (!clients) {
+            throw new error('No client found', 404);
+        }
+        const response = new ResponseData(clients, 200, 'Clients found');
+        ResponseHandler(res, response, 200);
     }
     catch (err) {
         console.error(err);
