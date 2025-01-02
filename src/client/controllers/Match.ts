@@ -9,15 +9,29 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
     try {
 
      const query = req.query;
+
+     const {ethinicity,qualification,occupation,meal,member} = req.body;
+     if(!ethinicity || !qualification || !occupation || !meal || !member){
+        throw new error('All fields are required',400)
+     }
+
      if (!query) {
         throw new error( 'Query is required',400);
         }
         let searchCriteria:any = {}
-        if (query.name) {
-            searchCriteria.name = query.name;
+        if (meal.drinking) {
+            if (!searchCriteria.meal) {
+                searchCriteria.meal = {};
+            }
+            searchCriteria.meal = meal;
         }
 
-        const clients = await client.find(searchCriteria,{
+
+        let clients = await client.find({
+            $text: {
+                $search:  meal?.drinking + ' ' + meal?.smoking,
+            }
+        },{
             score: { $meta: "textScore" }
         }).sort({
             score: { $meta: "textScore" }, // Sort by score
@@ -28,7 +42,7 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
           ...user.toObject(),
           matchPercentage: user.score ? ((user.score / maxScore) * 100).toFixed(2) : '0.00',
         }));
-        
+        console.log(usersWithMatchPercentage)
     }
     catch (err) {
         console.error(err);

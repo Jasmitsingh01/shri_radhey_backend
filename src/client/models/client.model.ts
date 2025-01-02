@@ -412,6 +412,7 @@ const clientModel = new Schema({
     }
 );
 
+clientModel.index({ '$**': 'text' }); // Add the text index to the model
 const client = model<IClient>('client', clientModel);
 
 export default client;

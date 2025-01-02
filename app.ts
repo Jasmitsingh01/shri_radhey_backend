@@ -9,34 +9,57 @@ app.use(Cors({
   origin: 'http://localhost:3000',
   credentials: true
 }));
-
+let Clientparse=false;
+// Json parser
 app.use('/api/user', Proxy('http://localhost:9000', {
 
-  parseReqBody: true,
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};
+
     if(srcReq?.headers['content-type']){
       proxyReqOpts.headers['Content-Type'] = srcReq.headers['content-type'];
     }else{
       proxyReqOpts.headers['Content-Type'] = 'application/json'
+
     }
     return proxyReqOpts;
   },
   userResDecorator(proxyRes, proxyResData, userReq, userRes) {
     return proxyResData;
   },
+  parseReqBody:true,
 }))
+app.use('/api/userForm', Proxy('http://localhost:9000', {
 
-app.use('/api/task', Proxy('http://localhost:9001'))
-
-app.use('/api/client', Proxy('http://localhost:9002', {
-
-  parseReqBody: true,
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};
+
     if(srcReq?.headers['content-type']){
       proxyReqOpts.headers['Content-Type'] = srcReq.headers['content-type'];
     }else{
+      proxyReqOpts.headers['Content-Type'] = 'application/json'
+
+    }
+    return proxyReqOpts;
+  },
+  userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+    return proxyResData;
+  },
+  parseReqBody:false,
+}))
+app.use('/api/task', Proxy('http://localhost:9001'))
+// Json parser
+app.use('/api/client', Proxy('http://localhost:9002', {
+
+  proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+    proxyReqOpts.headers = proxyReqOpts.headers || {};
+
+    if(srcReq?.headers['content-type']){
+    
+       
+      proxyReqOpts.headers['Content-Type'] = srcReq.headers['content-type'];
+    }
+    else{
       proxyReqOpts.headers['Content-Type'] = 'application/json'
     }
     return proxyReqOpts;
@@ -44,10 +67,29 @@ app.use('/api/client', Proxy('http://localhost:9002', {
   userResDecorator: function(proxyRes, proxyResData, req, res) {
    
       return proxyResData;
-  }
+  },
+  parseReqBody:true,
 
    
 
+}))
+// Form Data parser
+
+app.use('/api/clientForm', Proxy('http://localhost:9002', {  
+  proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+    proxyReqOpts.headers = proxyReqOpts.headers || {};
+    if(srcReq?.headers['content-type']){
+      proxyReqOpts.headers['Content-Type'] = srcReq.headers['content-type'];
+    }else{
+      proxyReqOpts.headers['Content-Type'] = 'application/json'
+
+    }
+    return proxyReqOpts;
+  },
+  userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+    return proxyResData;
+  },
+  parseReqBody:false,
 }))
 
 app.use('/api/field', Proxy('http://localhost:9003'))
