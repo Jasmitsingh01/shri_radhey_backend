@@ -11,7 +11,7 @@ const Deltask=RequestHandler(async (req: Request, res: Response, next: NextFunct
     try {
         const id=req.query._id
         
-        const Del= await Task.findByIdAndDelete(id);
+        const Del= await Task.deleteOne().and([{_id:id},{createadby:req.user?._id}]);
         if(!Del){
             throw new error(' failed to Delete task',500);
         }

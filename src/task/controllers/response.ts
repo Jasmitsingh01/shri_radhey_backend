@@ -8,7 +8,7 @@ import ResponseHandler from "../utlis/response/responseHandler";
 const ResponseTask = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { _id, data, } = req.body
-        const task = await Task.findById(_id);
+        const task = await Task.findOne().and([{ _id: _id }, { assign_to: req?.user?._id }]);
         if (!task) {
             throw new error('Please select Correct task', 400);
         }

@@ -7,7 +7,10 @@ import { Request,Response ,NextFunction} from 'express'
 
 const ALLTASK= RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
     try{
-        const TASK=await Task.find();
+        const {user}=req;
+        const TASK=await Task.find({
+            createadby:user?._id
+        });
         if(TASK.length<=0){
             throw  new error('No Task Found',501);
 
