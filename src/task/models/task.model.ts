@@ -1,16 +1,18 @@
 import { Schema, Types, model } from "mongoose";
-
 export interface ITask {
     title: string;
     description: string;
     createadby: Types.ObjectId;
     assign_to: Types.ObjectId;
     viewed: boolean;
+    dueDate: Date;
     response: {
         data: string;
         submitted_by: Types.ObjectId;
         submission_date: Date;
+        is_submitted: boolean
     };
+    status: string;
 }
 const taskModel = new Schema({
     title: {
@@ -23,13 +25,51 @@ const taskModel = new Schema({
         require: true,
     },
     createadby: {
-        type: Types.ObjectId,
-        ref: 'empolyee',
-        require: true
+        id: {
+            type: Types.ObjectId,
+            ref: 'empolyees',
+            require: true
+        },
+        name: {
+            type: String,
+            require: true
+        },
+        email: {
+            type: String,
+            require: true,
+        },
+        phone: {
+            type: String,
+            require: true,
+        },
     },
     assign_to: {
-        type: Types.ObjectId,
-        ref: 'empolyee',
+        id: {
+            type: Types.ObjectId,
+            ref: 'empolyees',
+            require: true
+        },
+        name: {
+            type: String,
+            require: true
+        },
+        email: {
+            type: String,
+            require: true,
+        },
+        phone: {
+            type: String,
+            require: true,
+        },
+
+    },
+    status: {
+        type: String,
+        require: true,
+        default: "Todo"
+    },
+    dueDate: {
+        type: Date,
         require: true
     },
     viewed: {
@@ -50,6 +90,10 @@ const taskModel = new Schema({
         submission_date: {
             type: Date,
 
+        },
+        is_submitted: {
+            type: Boolean,
+            default: false
         }
     }
 

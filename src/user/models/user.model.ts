@@ -165,7 +165,7 @@ empolyee.methods.isPasswordMatch =async function (password: string) {
 
 empolyee.methods.generateAccessToken = function () {
     return Jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY_Access_Token as string, {
-        expiresIn: "10m",
+        expiresIn: "1m",
     });
 };
 

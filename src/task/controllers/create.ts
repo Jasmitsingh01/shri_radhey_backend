@@ -7,14 +7,35 @@ import ResponseHandler from "../utlis/response/responseHandler";
 
 const  CreateTak= RequestHandler( async(req:Request,res:Response,next:NextFunction)=>{
     try{
-        const {title, description, assign_to}=req.body;
+        const {task:{title, description ,dueDate}, empolyee:{assinged_to}}=req.body;
         const {user}=req;
-        
+        if(!title || !description || !assinged_to ){
+            throw new error('All fields are required',400);
+        }
+        const id=assinged_to?.split('&')[0]
+        const name=assinged_to?.split('&')[1]
+        const email=assinged_to?.split('&')[3]
+        const phone=assinged_to?.split('&')[2]
+        if(!id || !name || !email || !phone){
+            throw new error('All fields are required',400);
+        }
         const task= new Task({
             title:title,
             description:description,
-            createadby:user?._id,
-            assign_to:assign_to,
+            createadby:
+            {
+                id:user?._id,
+                name:user?.fullname?.firstName + ' ' + user?.fullname?.lastName,
+                email:user?.contact_Details?.email,
+                phone:user?.contact_Details?.phone,
+            },
+            assign_to:{
+                id:id,
+                name:name,
+                email:email,
+                phone:phone,
+            },
+            dueDate:dueDate,
         });
 
         const save= await task.save();
@@ -26,8 +47,11 @@ const  CreateTak= RequestHandler( async(req:Request,res:Response,next:NextFuncti
         ResponseHandler(res,respone,201);
 
     }
-    catch(err){
-        console.error(err)
+    catch(error){
+        console.error(error)
+        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
+
+    ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
     }
 });
 

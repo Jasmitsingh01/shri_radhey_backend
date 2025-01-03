@@ -13,6 +13,7 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
             throw new error("Token not found",400);
         }
 
+
         const verfiy= jwt.verify(token,process.env.JWT_SECRET_KEY_Refreseh_Token as string);
          if(!verfiy){
             throw new error('Invalid token',402)
@@ -37,7 +38,11 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
         ResponseHandler(res,rsp,200)
     }
     catch (err) {
-        console.error(err);
+        
+        if((err as any).message==='TokenExpiredError'){
+        const rsp=new ResponseData(null,(err as any).statusCode,(err as any).message)
+        ResponseHandler(res,rsp,(err as any).statusCode)
+        }
         const rsp=new ResponseData(null,(err as any).statusCode,(err as any).message)
         ResponseHandler(res,rsp,(err as any).statusCode)
     }

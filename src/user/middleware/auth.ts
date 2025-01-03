@@ -17,7 +17,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
             throw new error('Token not found', 400);
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY_Access_Token as string);
         const user = await EmpolyeeUser.findById((decoded as any)._id);
 
         if (!user) {
