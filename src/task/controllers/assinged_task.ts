@@ -6,18 +6,19 @@ import Task from "../models/task.model";
 import { Request, Response, NextFunction } from 'express'
 import mongoose from "mongoose";
 
-const ALLTASK = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
+const ALLTASKAssinged = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { user } = req;
         const id = new mongoose.Types.ObjectId(user._id);
         const TASK = await Task.find({
-            $or:[
-                {
-                    "createadby.id": id
-                },
-                {
-                    "assign_to.id":id
-                }
+             $and:[
+            {
+                "assign_to.id": id
+
+            },
+            {
+                status:"TODO"
+            } 
             ]
         });
         if (TASK.length <= 0) {
@@ -37,4 +38,4 @@ const ALLTASK = RequestHandler(async (req: Request, res: Response, next: NextFun
 })
 
 
-export default ALLTASK;
+export default ALLTASKAssinged;

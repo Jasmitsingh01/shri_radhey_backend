@@ -5,11 +5,10 @@ import error from "../utlis/error/Error";
 import { validationResult } from "express-validator";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
-import GenrateToken from "../utlis/genrateToken";
 import fs from 'fs'
 import path from "path";
 import sendmail from "../utlis/mailing/sendmail";
-const Register = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
+const Create = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -67,8 +66,6 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
              Hi,
                ${user.fullname.firstName + ' ' + user.fullname.lastName} your verification Code for your account is ${otp}
             `)
-        req.user = save;
-        await GenrateToken(req, res);
         const Newuser = {
             ...save.toObject(),
             password: undefined
@@ -90,4 +87,4 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
 
 
 
-export default Register;
+export default Create;

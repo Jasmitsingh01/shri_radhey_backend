@@ -6,22 +6,21 @@ import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 
 
-const Userall=RequestHandler( async (req:Request,res:Response,next:NextFunction)=>{
+const UserallUnApproved=RequestHandler( async (req:Request,res:Response,next:NextFunction)=>{
 
     try {
-
-        const all=await EmpolyeeUser.find({
-            
-             _id:{$ne:req.user._id},
+  
+        const all=await EmpolyeeUser.find( {
+            _id:{$ne:(req as any).user._id},
+            "empoylee_deatils.is_approved": false 
            
-             "empoylee_deatils.is_approved":true
-         
         })
         if(all.length<=0){
             throw new error("Failed to Fecth Empolyees",500);
 
 
         }
+      
         
         const response=new ResponseData(all,200,'All Empolyee Fecth Successfully');
         ResponseHandler(res,response,200)
@@ -36,4 +35,4 @@ const Userall=RequestHandler( async (req:Request,res:Response,next:NextFunction)
 })
 
 
-export default Userall
+export default UserallUnApproved

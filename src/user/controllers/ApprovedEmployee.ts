@@ -20,12 +20,17 @@ const ApprovedEmp=RequestHandler(async(req:Request,res:Response,next:NextFunctio
             is_approved:true,
         }
       });
-
+  
       if(!Approved){
         throw new error("Failed to Approved Employee ",500);
       };
 
-      const ApprovedData=new ResponseData(Approved,200,'Successfully Empolyee Approved');
+      const save=await Approved.save({validateBeforeSave:false});
+      if(!save){
+        throw new error("Failed to Approved Employee ",500);
+      }
+
+      const ApprovedData=new ResponseData(save,200,'Successfully Empolyee Approved');
       ResponseHandler(res,ApprovedData,200)
 
      } catch (error) {

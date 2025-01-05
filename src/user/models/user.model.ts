@@ -15,6 +15,7 @@ export interface EmpUser {
     empoylee_deatils: {
         emp_role: string,
         is_active: boolean,
+        is_approved:boolean,
         is_verfied_email: boolean,
         is_verfied_phone: boolean,
         code_email: string,
@@ -53,7 +54,7 @@ const empolyee = new Schema({
         email: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
         },
         phone: {
             type: String,

@@ -4,15 +4,42 @@ import Task from "../models/task.model";
 import error from "../utlis/error/Error";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
+import mongoose from "mongoose";
 const updatetaskField=RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
       try{
         const field = req.body;
+        const id = req.query.id;
+        if(!id){
+         throw new error('Please Provide Task Id to Update',400);
+        }
+        const Task_Id=new mongoose.Types.ObjectId(id as string);
         if(!field){
          throw new error('Please Provide Field to Update',400);
         }
-       const task = await Task.findOneAndUpdate({},{$set:{
-        ...field
-       }}).and([{_id:field._id},{createadby:req.user?._id}]);
+        const { title ,description, duedate,assign_to }=field;
+        if(!title || !description  || !assign_to){
+         throw new error('Please Provide Field to Update',400);
+        }
+        const Assignto_id =new mongoose.Types.ObjectId(assign_to.split('&')[0]);
+        const Assignto_name =assign_to.split('&')[1];
+        const Assignto_email =assign_to.split('&')[3];
+        const Assignto_Phone =assign_to.split('&')[2];
+
+
+       const task = await Task.findOneAndUpdate({
+        $and:[{_id:Task_Id},{"createadby.id":req.user?._id}]
+       },{$set:{
+        title,
+        description,
+        duedate,
+        assign_to:{
+          id:Assignto_id,
+          name:Assignto_name,
+          email:Assignto_email,
+          phone:Assignto_Phone
+        }
+     
+       }});
 
 
        if(!task){

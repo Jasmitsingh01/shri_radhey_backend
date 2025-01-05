@@ -63,10 +63,12 @@ interface IClient {
         };
         type: string;
         number_of_member?: number;
+        house_status?: string;
     };
     member: {
         stauts: string;
         expries_member: Date;
+        registration_date?: Date;
         package: {
             name: string;
             amount_paid: number;
@@ -74,6 +76,26 @@ interface IClient {
         budget: number;
         source: string;
     };
+    native:{
+        state:string,
+        town:string,
+      };
+      siblings_details:{
+       type:[
+          {
+              name?:string
+              age?:string,
+              relation?:string,
+              occupation?:string,
+              matrial_status?:string,
+              spouse_name?:string
+          }
+       ]
+      };
+  
+      astroligy:{
+            manglik:string
+      };
     meal: {
         diet: string;
         smoking: string;

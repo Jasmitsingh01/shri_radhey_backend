@@ -13,12 +13,14 @@ import Userall from '../controllers/all_user';
 import VeryfyEmail from '../utlis/verifyEmail';
 import ApprovedEmp from '../controllers/ApprovedEmployee';
 import ResendCode from '../controllers/ResendCode';
+import UserallUnApproved from '../controllers/all_unapproved';
+import Create from '../controllers/Create';
 
 const router=express.Router();
 
 router.post('/register', Register as any);
 
-router.post('/create', Register as any);
+router.post('/create', Create as any);
 
 router.post('/login', [body('email').isEmail(),body('password').isLength({min:6})],Login as any);
 
@@ -39,5 +41,7 @@ router.put('/user',auth as any ,Userupdate as any)
 router.delete('/user',auth as any ,Userdelete as any)
 
 router.get('/list-user',auth as any ,Userall as any)
+
+router.get('/unapproved-users',auth as any,UserallUnApproved as any)
 
 export default router;

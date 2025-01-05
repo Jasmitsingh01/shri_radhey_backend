@@ -7,11 +7,13 @@ import updatetaskField from '../controllers/update.field';
 import ResponseTask from '../controllers/response';
 import Deltask from '../controllers/delete';
 import SingleTask from '../controllers/single';
+import ALLTASKAssinged from '../controllers/assinged_task';
 const router = Express.Router();
 
 
 router.post('/task-create',auth as any, CreateTak as any)
 router.get('/',auth as any,ALLTASK as any);
+router.get('/assinged',auth as any,ALLTASKAssinged as any);
 router.put('/task-update',auth as any,updatetaskField as any);
 router.patch('/response-task',auth as any,ResponseTask as any);
 router.delete('/del-tak',auth as any, Deltask as any)

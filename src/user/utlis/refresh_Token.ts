@@ -38,13 +38,17 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
         ResponseHandler(res,rsp,200)
     }
     catch (err) {
-        
-        if((err as any).message==='TokenExpiredError'){
+        console.error(err)
         const rsp=new ResponseData(null,(err as any).statusCode,(err as any).message)
-        ResponseHandler(res,rsp,(err as any).statusCode)
+
+        if((err as any).message === 'jwt expired'){
+        ResponseHandler(res,rsp,403)
         }
-        const rsp=new ResponseData(null,(err as any).statusCode,(err as any).message)
-        ResponseHandler(res,rsp,(err as any).statusCode)
+        else{
+
+            ResponseHandler(res,rsp,(err as any).statusCode)
+        }
+        
     }
 
 });

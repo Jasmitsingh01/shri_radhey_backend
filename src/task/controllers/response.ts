@@ -4,11 +4,20 @@ import Task from "../models/task.model";
 import error from "../utlis/error/Error";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
+import mongoose from "mongoose";
 
 const ResponseTask = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id, data, } = req.body
-        const task = await Task.findOne().and([{ _id: id }, { assign_to: req?.user?._id }]);
+        console.log('task id', id)
+        console.log(req.user._id)
+        if (!id || !data) {
+            throw new error("Invaild request", 400)
+        }
+        const _id = new mongoose.Types.ObjectId(id);
+        const task = await Task.findOne({
+            $and: [{ _id: _id }, { "assign_to.id": req?.user?._id }]
+        });
         if (!task) {
             throw new error('Please select Correct task', 400);
         }
@@ -18,7 +27,7 @@ const ResponseTask = RequestHandler(async (req: Request, res: Response, next: Ne
         task.response.submission_date = new Date();
         task.response.is_submitted = true;
 
-        const save = await task.save({validateBeforeSave:false});
+        const save = await task.save({ validateBeforeSave: false });
         if (!save) {
             throw new error('Something went wrong response is not Submitted', 500);
 

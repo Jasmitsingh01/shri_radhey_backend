@@ -1,7 +1,6 @@
 import Express from "express";
 import Proxy from 'express-http-proxy'
 import Cors from 'cors'
-import bodyParser, { json } from "body-parser";
 const app = Express();
 
 app.use(Express.json());
@@ -9,7 +8,15 @@ app.use(Cors({
   origin: 'http://localhost:3000',
   credentials: true
 }));
-let Clientparse=false;
+// for Sockited.io to user
+
+app.use(
+  "/socket.io", Proxy('http://localhost:9000', {
+    proxyReqPathResolver: (req) => req.originalUrl,
+  parseReqBody: false,
+  }
+  )
+);
 // Json parser
 app.use('/api/user', Proxy('http://localhost:9000', {
 
@@ -94,7 +101,7 @@ app.use('/api/clientForm', Proxy('http://localhost:9002', {
 
 app.use('/api/field', Proxy('http://localhost:9003'))
 
-app.use('/api/blog', Proxy('http://localhost:9004'))
+// app.use('/api/blog', Proxy('http://localhost:9004'))
 
 
 
