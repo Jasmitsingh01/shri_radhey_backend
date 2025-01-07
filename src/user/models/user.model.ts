@@ -3,6 +3,7 @@ import Jwt from "jsonwebtoken";
 import Bycrpt from "bcryptjs";
 export interface EmpUser {
     profile_pic:string,
+    gender:string
     fullname: {
         firstName: string,
         lastName: string
