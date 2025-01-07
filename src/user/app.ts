@@ -5,6 +5,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import online from "./utlis/Setonline";
 import offline from "./utlis/Setoffline";
+import ID_offline from "./utlis/ID_BASE_OFFLINE";
 
 const exp = express();
 const app = createServer(exp);
@@ -28,10 +29,16 @@ try {
 
         });
         socket.on('leave', async (data) => {
-            console.log('leave')
             const { token } = JSON.parse(data) || {};
             if (token) {
                 await offline(token)
+            }
+
+        })
+        socket.on('EmergenyExit',async (data)=>{
+            const { _id } = JSON.parse(data) || {};
+            if(_id){
+                ID_offline(_id)
             }
 
         })
