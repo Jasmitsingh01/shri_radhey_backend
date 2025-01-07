@@ -3,27 +3,23 @@ import RequestHandler from "../utlis/request/requestHandler";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
-import fs from 'fs'
 import { Request,Response ,NextFunction} from 'express'
+import UploadImageOnline from "../utlis/cloudnairy";
 
 
 const CreateClient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
 
-    console.log(req.file, req.body)
     try {
 
 
      
+        const { fullname, contact, height, gender, birth, ethinicity, email , fulladdreess, qualification, occupation, member, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income,astrology ,native,sibling,perferance} = req.body;
 
-        const { fullname, contact, height, gender, birth, ethinicity, email , fulladdreess, qualification, occupation, member, profile_image, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income } = req.body;
-
-         
-        
-        if (!fullname?.firstname || !contact?.phone || !email || !height?.value || !gender || !birth?.date || !birth?.place || !birth?.time || !ethinicity?.religion || !ethinicity?.caste || !ethinicity?.gotra || !fulladdreess?.country || !fulladdreess?.state || !fulladdreess?.city || !fulladdreess?.pincode || !qualification?.qualification || !occupation?.occupation  || !blood_group || !marital_status || !body_type || !complexion || !use_specatils?.use || !family?.father.name || !family?.mother.name || !member?.stauts || !member?.expries || !member?.package.name || !member?.package?.amount_paid || !member?.budget || !member?.source || !meal?.diet || !meal?.smoking || !meal?.drinking || !abroad?.is_willing || !belive_in_patri || !open_for_other_caste || !income?.family || !income?.personal) {
+         const file= req.file;
+        if (!fullname?.firstname || !contact?.phone || !email || !height?.value || !gender || !birth?.date || !birth?.place || !birth?.time || !ethinicity?.religion || !ethinicity?.caste || !ethinicity?.gotra || !fulladdreess?.country || !fulladdreess?.state || !fulladdreess?.city || !fulladdreess?.pincode || !astrology?.manglik || !native?.state || !native?.town || !qualification?.qualification || !occupation?.occupation  || !blood_group || !marital_status || !body_type || !complexion || !use_specatils?.use || !family?.father.name || !family?.mother.name || !family?.house_status || !member?.stauts || !member?.expries || !member?.package?.name || !member?.package?.amount_paid || !member?.budget || !member?.source || !meal?.diet || !meal?.smoking || !meal?.drinking || !abroad?.is_willing || !belive_in_patri || !open_for_other_caste || !income?.family || !income?.personal || !file) {
             throw new error('some fields are missing ', 400)
         }
-
-        // const { file } = req.files;
+         const imageurl= await UploadImageOnline((file as any )?.path || '');
         const { firstname, lastname } = fullname;
         const { phone, whatsaap_number } = contact;
         const { value, unit } = height;
@@ -33,12 +29,11 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         const { qualification: qualification_name, details: qualification_details } = qualification;
         const { occupation: occupation_name, details: occupation_details } = occupation;
         const { use, power } = use_specatils;
-        const { father: { name: father_name, occupation: father_occupation }, mother: { name: mother_name, occupation: mother_occupation }, type, number_of_member } = family
+        const { father: { name: father_name, occupation: father_occupation }, mother: { name: mother_name, occupation: mother_occupation }, type, number_of_member ,house_status} = family
         const { stauts, expries, package: { name: package_name, amount_paid }, budget, source } = member;
         const { diet, smoking, drinking } = meal;
         const { is_willing, mention_country } = abroad;
         const { family: family_income, personal: personal_income } = income;
-
 
 
 
@@ -65,6 +60,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 place,
                 time
             },
+            perfrences:perferance,
             ethinicity: {
                 religion,
                 caste,
@@ -77,6 +73,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 custom: custom ? custom : city + state + country + '-' + pincode,
                 pincode
             },
+            astroligy:astrology,
             qualification: {
                 qualification: qualification_name,
                 details: qualification_details,
@@ -96,7 +93,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 source
 
             },
-            profile_image,
+            profile_image:imageurl,
             disablitiy,
             blood_group,
             marital_status,
@@ -116,8 +113,11 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                     occupation: mother_occupation,
                 },
                 type,
-                number_of_member
+                number_of_member,
+                house_status:house_status
             },
+            native:native,
+            siblings_details:sibling,
             meal: {
                 diet,
                 smoking,

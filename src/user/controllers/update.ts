@@ -5,6 +5,7 @@ import error from "../utlis/error/Error";
 import { validationResult } from "express-validator";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
+import UploadImageOnline from "../utlis/cloudnairy";
 
 
 const Userupdate = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -13,6 +14,15 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
 
         const Data = req.body
         const user = req.user;
+        if(!Data){
+            throw new error('Invalid Request',400)
+        }
+        const file=req.file;
+
+        const  imageurl= await UploadImageOnline(file?.path || '')
+        if(!imageurl){
+            throw new error('Failed upload image',500)
+        }
         const update = await EmpolyeeUser.findByIdAndUpdate(user?._id, {
             fullname:{
                 firstName:Data?.fullname?.fullname?.split(' ')[0],
@@ -23,7 +33,7 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
                 email:Data?.contact?.email
             },
             gender:Data?.gender,
-            profile_image:Data?.profile_image,
+            profile_image:imageurl,
             address:{
                 fulladdress:Data?.address
             }

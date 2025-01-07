@@ -6,6 +6,7 @@ interface IClient {
         firstname: string;
         lastname?: string;
     };
+    perfrences:string;
     contact: {
         phone: string;
         whatsaap_number?: string;
@@ -76,26 +77,27 @@ interface IClient {
         budget: number;
         source: string;
     };
-    native:{
-        state:string,
-        town:string,
-      };
-      siblings_details:{
-       type:[
-          {
-              name?:string
-              age?:string,
-              relation?:string,
-              occupation?:string,
-              matrial_status?:string,
-              spouse_name?:string
-          }
-       ]
-      };
-  
-      astroligy:{
-            manglik:string
-      };
+    native: {
+        state: string,
+        town: string,
+    };
+    perferance: string,
+    siblings_details: {
+        type: [
+            {
+                name?: string
+                age?: string,
+                relation?: string,
+                occupation?: string,
+                matrial_status?: string,
+                spouse_name?: string
+            }
+        ]
+    };
+
+    astroligy: {
+        manglik: string
+    };
     meal: {
         diet: string;
         smoking: string;
@@ -124,23 +126,59 @@ const clientModel = new Schema({
 
         },
     },
+    native: {
+        state: {
+            type: String
+        },
+        town: {
+            type: String
+        }
+    },
+    perfrences:{
+        type:String,
+        require:true
+    },
+    siblings_details: {
+        type: [
+            {
+                name: {
+                    type: String,
+                },
+                age: {
+                    type: String,
+                },
+                relation: {
+                    type: String,
+                },
+                occupation: {
+                    type: String,
+                },
+                marital_status: {
+                    type: String,
+                },
+                spouse_name: {
+                    type: String,
+                }
+            }
+        ]
+    },
     contact: {
         phone: {
             type: String,
             require: true,
-            unique:true,
+            unique: true,
 
 
         },
         whatsaap_number: {
             type: String,
-            unique:true,
+            unique: true,
 
         },
         email: {
             type: String,
             require: true,
-            unique:true,
+            unique: true,
 
         },
     },
@@ -157,10 +195,18 @@ const clientModel = new Schema({
 
         },
     },
+   
     gender: {
         type: String,
         require: true
 
+    },
+    astroligy: {
+        manglik: {
+            type: String,
+            require: true,
+            default: "No Manglik"
+        }
     },
     birth: {
         date: {
@@ -328,6 +374,10 @@ const clientModel = new Schema({
             type: Number,
 
         },
+        house_status:{
+            type:String,
+            require:true
+        }
     },
     member: {
         stauts: {

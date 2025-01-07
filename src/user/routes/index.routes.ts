@@ -15,33 +15,34 @@ import ApprovedEmp from '../controllers/ApprovedEmployee';
 import ResendCode from '../controllers/ResendCode';
 import UserallUnApproved from '../controllers/all_unapproved';
 import Create from '../controllers/Create';
+import upload from '../middleware/upload.image';
 
-const router=express.Router();
+const router = express.Router();
 
 router.post('/register', Register as any);
 
 router.post('/create', Create as any);
 
-router.post('/login', [body('email').isEmail(),body('password').isLength({min:6})],Login as any);
+router.post('/login', [body('email').isEmail(), body('password').isLength({ min: 6 })], Login as any);
 
-router.post('/forgot-password',forgotPassword as any);
+router.post('/forgot-password', forgotPassword as any);
 
-router.patch('/reset-password',[body('email').isEmail(),body('password').isLength({min:6}),body('code').isLength({min:4,max:4})],ResetPassword as any);
+router.patch('/reset-password', [body('email').isEmail(), body('password').isLength({ min: 6 }), body('code').isLength({ min: 4, max: 4 })], ResetPassword as any);
 
-router.patch('/refresh-token',refresh_Token as any);
+router.patch('/refresh-token', refresh_Token as any);
 
-router.patch('/resend-code',ResendCode as any);
+router.patch('/resend-code', ResendCode as any);
 
-router.post('/approved-user', auth as any  ,ApprovedEmp as any)
+router.post('/approved-user', auth as any, ApprovedEmp as any)
 
-router.post('/verfiy-email',[body('email').isEmail(),body('code').isLength({min:4,max:4})],VeryfyEmail as any)
+router.post('/verfiy-email', [body('email').isEmail(), body('code').isLength({ min: 4, max: 4 })], VeryfyEmail as any)
 
-router.get('/user',auth as any,Profile as any)
-router.put('/user',auth as any ,Userupdate as any)
-router.delete('/user',auth as any ,Userdelete as any)
+router.get('/user', auth as any, Profile as any)
+router.put('/user', auth as any, upload.single('profile_image'), Userupdate as any)
+router.delete('/user', auth as any, Userdelete as any)
 
-router.get('/list-user',auth as any ,Userall as any)
+router.get('/list-user', auth as any, Userall as any)
 
-router.get('/unapproved-users',auth as any,UserallUnApproved as any)
+router.get('/unapproved-users', auth as any, UserallUnApproved as any)
 
 export default router;

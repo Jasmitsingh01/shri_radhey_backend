@@ -19,7 +19,7 @@ const  router = Express.Router();
 
 router.get('/client',auth as any , ALLclient as any);
 
-router.post('/create-client', auth as any  ,upload.single('profile_image') ,CreateClient as any);
+router.post('/create-client' , auth as any ,upload.single('profile_image') ,CreateClient as any);
 
 router.patch('/field-client', auth as any ,    upload.single('profile_image')   ,updateField as any);
 
