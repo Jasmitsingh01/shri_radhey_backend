@@ -35,7 +35,7 @@ try {
             }
 
         })
-        socket.on('EmergenyExit',async (data)=>{
+        socket.on('emergenyexit',async (data)=>{
             const { _id } = JSON.parse(data) || {};
             if(_id){
                 ID_offline(_id)
