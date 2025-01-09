@@ -33,15 +33,18 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
       if (verify.status !== 200) {
          throw new error('Unauthorized', 401);
       }
+      if (verify.data?.data?.empoylee_deatils?.emp_role !== "admin_employee" || verify.data?.data?.empoylee_deatils?.emp_role) {
+         throw new error("Access Deined", 500)
+      }
       req.user = verify.data?.data;
       next();
 
    }
-   catch (error) {
-      console.error(error)
-      const response = new ResponseData(error, (error as any).statusCode || (error as any).status || 500, (error as any).message);
+   catch (err) {
+      console.error(err);
+      const response = new ResponseData(err, (err as any).statusCode || (err as any).status || 500, (err as any).message);
 
-      ResponseHandler(res, response, (error as any).statusCode || (error as any).status || 500)
+      ResponseHandler(res, response, (err as any).statusCode || (err as any).status || 500)
    }
 })
 

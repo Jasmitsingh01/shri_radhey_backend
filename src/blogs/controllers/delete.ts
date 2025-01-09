@@ -14,7 +14,10 @@ const DelBlogs=RequestHandler(async (req:Request,res:Response,next:NextFunction)
         if(!id){
             throw new error("Invaild Request",400)
         }
-        const delBolg= await blog.findByIdAndDelete(id);
+        const delBolg= await blog.deleteOne({
+            _id:id,
+            created_by:req.user?._id
+    });
         if(!delBolg){
             throw new error("Failed to Delete Blog",500)
         }
@@ -27,7 +30,9 @@ const DelBlogs=RequestHandler(async (req:Request,res:Response,next:NextFunction)
         
     } catch (error) {
         console.error(error)
-        
+        const response = new ResponseData(error, (error as any).statusCode || (error as any).status || 500, (error as any).message);
+
+      ResponseHandler(res, response, (error as any).statusCode || (error as any).status || 500)
     }
 })
 

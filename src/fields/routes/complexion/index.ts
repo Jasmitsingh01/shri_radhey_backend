@@ -3,6 +3,7 @@ import AllComplexion from "../../controller/complexion/all";
 import CreateComplexion from "../../controller/complexion/create";
 import updateComplexion from "../../controller/complexion/update";
 import delcomplexion from "../../controller/complexion/delete";
+import auth from "../../middleware/auth";
 
 
 const complexionRouter=Express.Router();
@@ -10,13 +11,13 @@ const complexionRouter=Express.Router();
 
 
 
-complexionRouter.get('/',AllComplexion)
+complexionRouter.get('/',AllComplexion as any)
 
-complexionRouter.post('/create',CreateComplexion)
+complexionRouter.post('/create', auth as any,CreateComplexion as any)
 
-complexionRouter.put('/update',updateComplexion)
+complexionRouter.put('/update',auth as any,updateComplexion as any)
 
 
-complexionRouter.delete('/delete',delcomplexion)
+complexionRouter.delete('/delete',auth as any,delcomplexion as any)
 
 export default complexionRouter;

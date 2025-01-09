@@ -42,7 +42,7 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
         const rsp=new ResponseData(null,(err as any).statusCode,(err as any).message)
 
         if((err as any).message === 'jwt expired'){
-        ResponseHandler(res,rsp,403)
+        ResponseHandler(res,rsp,402)
         }
         else{
 

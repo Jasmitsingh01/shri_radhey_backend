@@ -46,5 +46,5 @@ router.get('/list-user', auth as any, Userall as any)
 
 router.get('/unapproved-users', auth as any, UserallUnApproved as any)
 
-router.post('logout', logout as any)
+router.post('/logout', logout as any)
 export default router;

@@ -5,22 +5,34 @@ import error from "../utlis/error/Error";
 import { Request,Response,NextFunction} from 'express'
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
+import UploadImageOnline from "../utlis/cloudnairy";
 
 
 const createBlogs=RequestHandler(async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const { title, description,keywords , content}=req.body;
-
-        if(!title || !description || !keywords || !content){
+        const { blog:{title, description,keyword} , content}=req.body;
+        if(!title || !description || !keyword || !content){
             throw new error('Some fields are missing',400)
         }
-        const {user}=req
+        const {user, file}=req
 
+        if(!file){
+            throw  new error('Failed to Upload File',500)
+        }
+        const ImageUrl= await UploadImageOnline(file?.path || "");
+        if(!ImageUrl){
+            throw new error('Failed to Upload File',500)
+
+        }
         const newBlog= new blog({
             title,
             description,
             content,
-            keywords,
+            thumbnails:{
+                url:ImageUrl,
+                path:file?.path
+            },
+            keywords:keyword,
             created_by:user._id
         });
         const save = await newBlog.save();
@@ -34,7 +46,10 @@ const createBlogs=RequestHandler(async (req:Request,res:Response,next:NextFuncti
         ResponseHandler(res, response, 201);
         
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        const response = new ResponseData(error, (error as any).statusCode || (error as any).status || 500, (error as any).message);
+
+      ResponseHandler(res, response, (error as any).statusCode || (error as any).status || 500)
         
     }
 })

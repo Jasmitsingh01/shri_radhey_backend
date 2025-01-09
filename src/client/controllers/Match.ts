@@ -10,8 +10,8 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
 
         const query = req.query;
 
-        const { ethinicity, qualification, occupation, meal, member, gender, complexion, body_type, marital_status } = req.body;
-        if (!ethinicity && !qualification && !occupation && !meal && !member && !gender && !complexion && !body_type && !marital_status) {
+        const { ethinicity, qualification, occupation, meal, member, gender, complexion, body_type, marital_status,_id } = req.body;
+        if ((!ethinicity && !qualification && !occupation && !meal && !member && !gender && !complexion && !body_type && !marital_status) || !_id) {
             throw new error('All fields are required', 400)
         }
 
@@ -31,7 +31,10 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
                 { complexion: complexion },
                 { body_type: body_type },
                 { marital_status: marital_status }
-            ]
+            ],
+            _id:{
+                $ne:{_id}
+            }
 
 
         });

@@ -6,7 +6,7 @@ import { validationResult } from "express-validator";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import UploadImageOnline from "../utlis/cloudnairy";
-
+import fs from 'fs'
 
 const Userupdate = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -34,7 +34,14 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
         update.contact_Details.phone = Data?.contact?.phone;
         update.gender = Data?.gender;
         if (file) {
-            update.profile_pic = imageurl || ''
+            fs.unlink(update.profile_pic.path,(err)=>{
+                if(err){
+                    console.log('File not Delete');
+                }
+                console.log('File Deleted')
+            })
+            update.profile_pic.url = imageurl || ''
+            update.profile_pic.path=file.path
         }
         update.address.fulladdress = Data?.address
 

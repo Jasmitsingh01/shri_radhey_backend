@@ -101,9 +101,32 @@ app.use('/api/clientForm', Proxy('http://localhost:9002', {
 
 app.use('/api/field', Proxy('http://localhost:9003'))
 
-// app.use('/api/blog', Proxy('http://localhost:9004'))
+app.use('/api/blog', Proxy('http://localhost:9004'))
+// Form Data parser
+
+app.use('/api/blogForm', Proxy('http://localhost:9004',{
+  
+  proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+    proxyReqOpts.headers = proxyReqOpts.headers || {};
+
+    if(srcReq?.headers['content-type']){
+      proxyReqOpts.headers['Content-Type'] = srcReq.headers['content-type'];
+    }else{
+      proxyReqOpts.headers['Content-Type'] = 'application/json'
+
+    }
+    return proxyReqOpts;
+  },
+  userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+    return proxyResData;
+  },
+  parseReqBody:false,
+}))
 
 
+app.use('/',(req,res)=>{
+  res.send("Server Is Running")
+})
 
 
 export default app;

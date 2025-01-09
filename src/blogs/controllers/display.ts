@@ -9,9 +9,9 @@ import ResponseHandler from "../utlis/response/responseHandler";
 
 
 
-const createBlogs=RequestHandler(async (req:Request,res:Response,next:NextFunction)=>{
+const DisplayBlogs=RequestHandler(async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const {id}=req.query;
+        const {id}=req.params;
         if(!id){
             throw new error('Invalid Request',400)
         }
@@ -27,8 +27,10 @@ const createBlogs=RequestHandler(async (req:Request,res:Response,next:NextFuncti
         
     } catch (error) {
         console.error(error)
-        
+        const response = new ResponseData(error, (error as any).statusCode || (error as any).status || 500, (error as any).message);
+
+      ResponseHandler(res, response, (error as any).statusCode || (error as any).status || 500)
     }
 })
 
-export default createBlogs;
+export default DisplayBlogs;

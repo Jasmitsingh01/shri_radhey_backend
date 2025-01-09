@@ -9,11 +9,13 @@ import ResponseHandler from "../utlis/response/responseHandler";
 
 
 
-const AllBlogs= RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
+const AllBlogsUSer= RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
 
     try {
-    
-    const blogs= await blog.find();
+    const {user}=req;        
+    const blogs= await blog.find({
+        created_by:user._id
+    });
 
     if(blogs.length<=0){
         throw new error('No Blogs is Found',401)
@@ -33,4 +35,4 @@ const AllBlogs= RequestHandler(async(req:Request,res:Response,next:NextFunction)
 });
 
 
-export default AllBlogs;
+export default AllBlogsUSer;

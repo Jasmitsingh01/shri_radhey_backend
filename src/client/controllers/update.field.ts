@@ -5,6 +5,7 @@ import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
 import { Request, Response, NextFunction } from 'express'
 import UploadImageOnline from "../utlis/cloudnairy";
+import fs from 'fs'
 
 
 const updateField = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -18,10 +19,7 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         if (!fullname?.firstname || !contact?.phone || !email || !height?.value || !gender || !birth?.date || !birth?.place || !birth?.time || !ethinicity?.religion || !ethinicity?.caste || !ethinicity?.gotra || !fulladdreess?.country || !fulladdreess?.state || !fulladdreess?.city || !fulladdreess?.pincode || !astrology?.manglik || !native?.state || !native?.town || !qualification?.qualification || !occupation?.occupation || !blood_group || !marital_status || !body_type || !complexion || !use_specatils?.use || !family?.father.name || !family?.mother.name || !family?.house_status || !member?.stauts || !member?.expries || !member?.package?.name || !member?.package?.amount_paid || !member?.budget || !member?.source || !meal?.diet || !meal?.smoking || !meal?.drinking || !abroad?.is_willing || !belive_in_patri || !open_for_other_caste || !income?.family || !income?.personal) {
             throw new error('some fields are missing ', 400)
         }
-        let imageurl;
-        if (file) {
-            imageurl = await UploadImageOnline(file?.path || "")
-        }
+        
         const { firstname, lastname } = fullname;
         const { phone, whatsaap_number } = contact;
         const { value, unit } = height;
@@ -105,7 +103,24 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         updateClient.perferance = perferance;
         updateClient.astroligy = astrology;
         if (file) {
-            updateClient.profile_image = imageurl || ""
+            if (updateClient.profile_image) {
+                if(updateClient.profile_image.path){
+                    fs.unlink(updateClient.profile_image.path,(err)=>{
+                        if(err){
+                            console.log("File Not be Deleted");
+                        }
+                        console.log("File Is Deleted")
+        
+                    })
+
+                }
+             const imageurl = await UploadImageOnline(file?.path || "")
+             if(imageurl){
+                updateClient.profile_image.url = imageurl || "";
+                updateClient.profile_image.path=file.path
+             }
+                
+            }
         }
 
         const save = await updateClient.save({
