@@ -10,7 +10,7 @@
     "rootDir": "./",
 
     // Specify output directory for compiled JavaScript files
-    "outDir": "dist",
+    "outDir": "./dist",
 
     // Enable strict type checking options
     "strict": true,
