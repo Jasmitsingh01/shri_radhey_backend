@@ -9,7 +9,7 @@
     "build-docker": "docker compose build",
     "start": "npx concurrently \"npm run start-backend\" \"npm run start-docker\" ",
     "start-backend": "node dist/index.js",
-    "start-docker": "docker compose up",
+    "start-docker": "docker compose up -d",
     "dev": "npx concurrently \"npm run dev-backend\" ",
     "dev-backend": "npx tsx --watch index.ts"
   },
