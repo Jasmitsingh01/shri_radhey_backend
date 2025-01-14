@@ -48,6 +48,8 @@ const BolgModel = new Schema({
         require:true
     }
 
+},{
+    timestamps:true
 });
 
 const blog = model<IBlog>('bolg', BolgModel);

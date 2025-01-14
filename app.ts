@@ -5,7 +5,7 @@ const app = Express();
 
 app.use(Express.json());
 app.use(Cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000','http://localhost:8000'],
   credentials: true
 }));
 // for Sockited.io to user
@@ -18,7 +18,7 @@ app.use(
   )
 );
 // Json parser
-app.use('/api/user', Proxy('http://localhost:9000', {
+app.use('/api/user', Proxy('http://127.0.0.1:9000', {
 
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};
@@ -36,7 +36,7 @@ app.use('/api/user', Proxy('http://localhost:9000', {
   },
   parseReqBody:true,
 }))
-app.use('/api/userForm', Proxy('http://localhost:9000', {
+app.use('/api/userForm', Proxy('http://127.0.0.1:9000', {
 
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};
@@ -54,9 +54,9 @@ app.use('/api/userForm', Proxy('http://localhost:9000', {
   },
   parseReqBody:false,
 }))
-app.use('/api/task', Proxy('http://localhost:9001'))
+app.use('/api/task', Proxy('http://127.0.0.1:9001'))
 // Json parser
-app.use('/api/client', Proxy('http://localhost:9002', {
+app.use('/api/client', Proxy('http://127.0.0.1:9002', {
 
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};
@@ -82,7 +82,7 @@ app.use('/api/client', Proxy('http://localhost:9002', {
 }))
 // Form Data parser
 
-app.use('/api/clientForm', Proxy('http://localhost:9002', {  
+app.use('/api/clientForm', Proxy('http://127.0.0.1:9002', {  
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};
     if(srcReq?.headers['content-type']){
@@ -99,12 +99,12 @@ app.use('/api/clientForm', Proxy('http://localhost:9002', {
   parseReqBody:false,
 }))
 
-app.use('/api/field', Proxy('http://localhost:9003'))
+app.use('/api/field', Proxy('http://127.0.0.1:9003'))
 
-app.use('/api/blog', Proxy('http://localhost:9004'))
+app.use('/api/blog', Proxy('http://127.0.0.1:9004'))
 // Form Data parser
 
-app.use('/api/blogForm', Proxy('http://localhost:9004',{
+app.use('/api/blogForm', Proxy('http://127.0.0.1:9004',{
   
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     proxyReqOpts.headers = proxyReqOpts.headers || {};

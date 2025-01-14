@@ -33,7 +33,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
       if (verify.status !== 200) {
          throw new error('Unauthorized', 401);
       }
-      if (verify.data?.data?.empoylee_deatils?.emp_role !== "admin_employee" || verify.data?.data?.empoylee_deatils?.emp_role) {
+      if (verify.data?.data?.empoylee_deatils?.emp_role !== "admin_employee" || !verify.data?.data?.empoylee_deatils?.emp_role) {
          throw new error("Access Deined", 500)
       }
       req.user = verify.data?.data;
