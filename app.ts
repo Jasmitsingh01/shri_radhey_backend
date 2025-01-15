@@ -4,10 +4,7 @@ import Cors from 'cors'
 const app = Express();
 
 app.use(Express.json());
-app.use(Cors({
-  origin: ["http://shriradheymatrimony.in","https://shriradheymatrimony.in","http://34.131.50.224:8000"],
-  credentials: true
-}));
+app.use(Cors());
 // for Sockited.io to user
 
 app.use(
