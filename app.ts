@@ -5,7 +5,7 @@ const app = Express();
 
 app.use(Express.json());
 app.use(Cors({
-  origin: ['http://localhost:3000','http://localhost:8000'],
+  origin: "*",
   credentials: true
 }));
 // for Sockited.io to user
