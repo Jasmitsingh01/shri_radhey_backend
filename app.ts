@@ -5,7 +5,7 @@ const app = Express();
 
 app.use(Express.json());
 app.use(Cors({
-  origin: "*",
+  origin: ["http://shriradheymatrimony.in","https://shriradheymatrimony.in"],
   credentials: true
 }));
 // for Sockited.io to user
