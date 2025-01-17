@@ -12,7 +12,7 @@ function sendmail(to: string, subject: string, html: string) {
         if (err) {
             console.error(err);
         } else {
-             console.log(info)
+             console.log('Email sent successfully to ',to );
         }
         }
     );

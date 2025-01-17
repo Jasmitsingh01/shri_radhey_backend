@@ -48,7 +48,7 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
         if (!save) {
             throw new error("User not saved", 500);
         }
-     fs.readFile(path.resolve(__dirname, '../public/template/welcome.html'), async (err, data) => {
+     fs.readFile(path.resolve(__dirname, '../../public/template/welcome.html'), async (err, data) => {
             if (err) {
                 const del = await EmpolyeeUser.deleteOne({
                     _id: user._id
@@ -58,15 +58,12 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
                 }
                 throw new error('Failed to load Mail data', 500)
             };
-            sendmail(user.contact_Details.email, 'Welcome Email From Shri Radhey Materimonay', String.fromCharCode.apply(null, Array.from(new Uint16Array(data))));
+           const Email = data.toString()?.replace('<h1>Congratulations  !</h1>', `<h1>Congratulations ${user.fullname?.firstName + ' ' + user.fullname?.lastName} !</h1>`)?.replace('<div id="code"></div>',`<div id="code">Your Verification Code <strong>${otp}</strong></div>`);
+            await sendmail(user.contact_Details.email, 'Welcome Email From Shri Radhey Materimonay', Email);
         })
 
 
 
-        sendmail(user.contact_Details.email, 'Verify Your account', `
-             Hi,
-               ${user.fullname.firstName + ' ' + user.fullname.lastName} your verification Code for your account is ${otp}
-            `)
         req.user = save;
         await GenrateToken(req, res);
         const Newuser = {

@@ -25,7 +25,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
       if (!token) {
          throw new error('Invaild request', 400);
       }
-      const verify = await axios.get('http://localhost:9000/user', {
+      const verify = await axios.get('http://host.docker.internal:9000/user', {
          headers: {
             'Authorization': `Bearer ${token}`, // Adding authoziation Token TO Headers
          }
