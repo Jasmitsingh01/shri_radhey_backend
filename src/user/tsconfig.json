@@ -39,7 +39,7 @@
   },
   "include": [
     // Specify files and directories to include in the compilation
-    "./**/*.ts"
+    "./**/*.ts", "./public/**/*"
   ],
   "exclude": [
     // Exclude unnecessary files/directories
