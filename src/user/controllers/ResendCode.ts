@@ -32,7 +32,7 @@ const ResendCode=RequestHandler(async (req:Request,res:Response,next:NextFunctio
       if(!Save){
         throw new error("Failed Send Code ",500)
       }
-      fs.readFile(path.join(__dirname,"../../public/template/verification_code.html"),'utf8',async (err,data)=>{
+      fs.readFile(path.join(__dirname,"../public/template/verification_code.html"),'utf8',async (err,data)=>{
         if(err){
             console.error(err)
         }

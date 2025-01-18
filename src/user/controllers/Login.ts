@@ -24,7 +24,7 @@ const Login = RequestHandler(async (req: Request, res: Response, next: NextFunct
         user.empoylee_deatils.code_email = otp;
         await user.save({ validateBeforeSave: false })
         if (!user.empoylee_deatils.is_verfied_email) {
-            fs.readFile(path.join(__dirname,"../../public/template/verification_code.html"),'utf8',async (err,data)=>{
+            fs.readFile(path.join(__dirname,"../public/template/verification_code.html"),'utf8',async (err,data)=>{
                 if(err){
                     console.error(err)
                 }
@@ -38,7 +38,7 @@ const Login = RequestHandler(async (req: Request, res: Response, next: NextFunct
             throw new error('Please Verify your Email First', 501)
         }
 
-        fs.readFile(path.join(__dirname, "../../public/template/adminCode.html"), 'utf8', async (err, data) => {
+        fs.readFile(path.join(__dirname, "../public/template/adminCode.html"), 'utf8', async (err, data) => {
             if (err) {
                 console.error(err)
             }

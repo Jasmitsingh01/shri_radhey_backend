@@ -48,7 +48,7 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
         if (!save) {
             throw new error("User not saved", 500);
         }
-     fs.readFile(path.resolve(__dirname, '../../public/template/welcome.html'), async (err, data) => {
+     fs.readFile(path.resolve(__dirname, '../public/template/welcome.html'), async (err, data) => {
             if (err) {
                 const del = await EmpolyeeUser.deleteOne({
                     _id: user._id
