@@ -12,7 +12,7 @@ services:
   task_image:
     build: ./src/task/
     container_name: task_container
-  
+    network_mode: "host"
 
     ports:
       - "9001:9001"
@@ -22,7 +22,7 @@ services:
   field_image:
      build: ./src/fields/
      container_name: field_container
-   
+     network_mode: "host"
      ports:
       - "9003:9003"
      environment:
@@ -33,7 +33,7 @@ services:
      container_name: client_container
      ports:
       - "9002:9002"
-   
+     network_mode: "host"
      environment:
       - ENV=development
   blog_image:
@@ -41,7 +41,7 @@ services:
      container_name: blog_container
      ports:
       - "9004:9004"
-   
+     network_mode: "host"
 
      environment:
       - ENV=development
