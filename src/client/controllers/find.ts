@@ -4,14 +4,17 @@ import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
 import { Request, Response, NextFunction } from 'express'
+import mongoose from "mongoose";
 
 const FindClient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
+        console.log(id,'SSS');
         if (!id) {
             throw new error('id is required', 400)
         }
-        const Client = await client.findById(id);
+        const _id= new mongoose.Types.ObjectId(id);
+        const Client = await client.findById(_id);
         if (!Client) {
             throw new error('client not found', 404)
         }

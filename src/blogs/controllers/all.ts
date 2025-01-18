@@ -1,7 +1,6 @@
 import RequestHandler from "../utlis/request/requestHandler";
 import blog from "../models/blogs.model";
 import error from "../utlis/error/Error";
-
 import { Request,Response,NextFunction} from 'express'
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
@@ -12,9 +11,10 @@ import ResponseHandler from "../utlis/response/responseHandler";
 const AllBlogs= RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
 
     try {
-    
-    const blogs= await blog.find();
+    const {page='0',limit='10'}=req.query;
+    const skip=parseInt(page as string) * parseInt(limit as string);
 
+    const blogs= await blog.find().sort({createdAt:-1}).skip(skip).limit(parseInt(limit as string)).exec();
     if(blogs.length<=0){
         throw new error('No Blogs is Found',401)
     }

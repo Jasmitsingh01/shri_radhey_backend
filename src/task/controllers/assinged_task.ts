@@ -9,6 +9,8 @@ import mongoose from "mongoose";
 const ALLTASKAssinged = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { user } = req;
+        const { page = '0', limit = '10' } = req.query;
+        const skip = parseInt(page as string) * parseInt(limit as string);
         const id = new mongoose.Types.ObjectId(user._id);
         const TASK = await Task.find({
              $and:[
@@ -20,7 +22,7 @@ const ALLTASKAssinged = RequestHandler(async (req: Request, res: Response, next:
                 status:"TODO"
             } 
             ]
-        });
+        }) .sort({createdAt:-1}).skip(skip).limit(parseInt(limit as string)).exec();
         if (TASK.length <= 0) {
             throw new error('No Task Found', 501);
 

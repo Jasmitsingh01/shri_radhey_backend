@@ -9,12 +9,14 @@ import ResponseHandler from "../utlis/response/responseHandler";
 const UserallUnApproved=RequestHandler( async (req:Request,res:Response,next:NextFunction)=>{
 
     try {
-  
+        const limit=req.query.limit || 10;
+        const page=req.query.page || 0;
+        const skip=parseInt(page as string)*parseInt(limit as string);
         const all=await EmpolyeeUser.find( {
             _id:{$ne:(req as any).user._id},
             "empoylee_deatils.is_approved": false 
            
-        })
+        }).sort({ createdAt: -1 }).skip(skip).limit(parseInt(limit as string)).exec()
         if(all.length<=0){
             throw new error("Failed to Fecth Empolyees",500);
 

@@ -7,6 +7,8 @@ import { validationResult } from "express-validator";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import sendmail from "../utlis/mailing/sendmail";
+import fs from 'fs'
+import path from "path";
 const forgotPassword = RequestHandler(async (req:Request, res:Response) => {
     try {
 
@@ -23,8 +25,16 @@ const forgotPassword = RequestHandler(async (req:Request, res:Response) => {
         const otp = Math.floor(1000 + Math.random() * 9000).toString();
         user.empoylee_deatils.code_email=otp;
          await user.save({validateBeforeSave:false});
-        sendmail(user.contact_Details.email,'Verification Code For Reset Your Password',otp)
+         fs.readFile(path.join(__dirname,"../../public/template/verification_code.html"),'utf8',async (err,data)=>{
+            if(err){
+                console.error(err)
+            }
+            else{
+                const HTMLTEMPLATE=data.toString().replace('<div class="verification-code"></div>',`<div class="verification-code">${otp}</div>`)
+            await    sendmail(user.contact_Details.email, 'Verification Code ', HTMLTEMPLATE)
 
+            }
+        })
         const Data= new ResponseData({
             email:user.contact_Details.email
         },200,'Verfication Code Sent to your email');

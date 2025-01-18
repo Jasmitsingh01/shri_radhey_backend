@@ -12,10 +12,12 @@ import ResponseHandler from "../utlis/response/responseHandler";
 const AllBlogsUSer= RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
 
     try {
-    const {user}=req;        
+    const {user}=req; 
+    const {page='0',limit='10'}=req.query;
+    const skip=parseInt(page as string) * parseInt(limit as string);       
     const blogs= await blog.find({
         created_by:user._id
-    });
+    }).sort({createdAt:-1}).skip(skip).limit(parseInt(limit as string)).exec();
 
     if(blogs.length<=0){
         throw new error('No Blogs is Found',401)

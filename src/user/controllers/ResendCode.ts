@@ -5,7 +5,8 @@ import error from "../utlis/error/Error";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import sendmail from "../utlis/mailing/sendmail";
-
+import fs from 'fs'
+import path from "path";
 
 
 const ResendCode=RequestHandler(async (req:Request,res:Response,next:NextFunction)=>{
@@ -31,7 +32,16 @@ const ResendCode=RequestHandler(async (req:Request,res:Response,next:NextFunctio
       if(!Save){
         throw new error("Failed Send Code ",500)
       }
-      sendmail(Resend.contact_Details.email,"Verification Code ",otp);
+      fs.readFile(path.join(__dirname,"../../public/template/verification_code.html"),'utf8',async (err,data)=>{
+        if(err){
+            console.error(err)
+        }
+        else{
+            const HTMLTEMPLATE=data.toString().replace('<div class="verification-code"></div>',`<div class="verification-code">${otp}</div>`)
+        await    sendmail(Resend.contact_Details.email, 'Verification Code ', HTMLTEMPLATE)
+
+        }
+    })
 
       const response=new ResponseData('',200,"Code send to your mail successfully");
       ResponseHandler(res,response,200)

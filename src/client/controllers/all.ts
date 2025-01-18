@@ -3,24 +3,26 @@ import RequestHandler from "../utlis/request/requestHandler";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
-import { Request,Response ,NextFunction} from 'express'
+import { Request, Response, NextFunction } from 'express'
 
-const ALLclient= RequestHandler(async(req:Request,res:Response,next:NextFunction)=>{
-    try{
-        const clientUers=await client.find();
-        if(client.length<=0){
-            throw  new error('No client Found',501);
+const ALLclient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { page = '1', limit = '10' } = req.query;
+        const skip = parseInt(page as string) * parseInt(limit as string);
+        const clientUers = await client.find().sort({ createdAt: -1 }).skip(skip).limit(parseInt(limit as string)).exec();
+        if (client.length <= 0) {
+            throw new error('No client Found', 501);
 
         }
-        const response= new ResponseData(clientUers,200,'All client Found Successfuly');
+        const response = new ResponseData(clientUers, 200, 'All client Found Successfuly');
 
-        ResponseHandler(res,response,200);
+        ResponseHandler(res, response, 200);
     }
-    catch(error){
+    catch (error) {
         console.error(error)
-        const response= new ResponseData(error,(error as any).statusCode || (error as any).status || 500,(error as any).message);
+        const response = new ResponseData(error, (error as any).statusCode || (error as any).status || 500, (error as any).message);
 
-    ResponseHandler(res,response,(error as any).statusCode || (error as any).status || 500)
+        ResponseHandler(res, response, (error as any).statusCode || (error as any).status || 500)
     }
 })
 
