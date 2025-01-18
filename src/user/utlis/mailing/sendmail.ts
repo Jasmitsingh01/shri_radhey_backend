@@ -1,7 +1,7 @@
 
 import transporter from "./mail.config";
 
-async function sendmail(to: string, subject: string, html: string) {
+ function sendmail(to: string, subject: string, html: string) {
   const mailOptions = {
     from: 'jasmits007@gmail.com',
     to: to,
