@@ -104,16 +104,7 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         updateClient.astroligy = astrology;
         if (file) {
             if (updateClient.profile_image) {
-                if(updateClient.profile_image.path){
-                    fs.unlink(updateClient.profile_image.path,(err)=>{
-                        if(err){
-                            console.log("File Not be Deleted");
-                        }
-                        console.log("File Is Deleted")
-        
-                    })
-
-                }
+               
              const imageurl = await UploadImageOnline(file?.path || "")
              if(imageurl){
                 updateClient.profile_image.url = imageurl || "";

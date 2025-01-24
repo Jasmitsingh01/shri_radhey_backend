@@ -13,7 +13,7 @@ app.use(Cors(
 // for Sockited.io to user
 
 app.use(
-  "/socket.io", Proxy('http://localhost:9000', {
+  "/socket.io", Proxy('http:///0.0.0.0:9000', {
     proxyReqPathResolver: (req) => req.originalUrl,
     parseReqBody: false,
   }

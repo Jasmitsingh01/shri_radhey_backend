@@ -34,12 +34,7 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
         update.contact_Details.phone = Data?.contact?.phone;
         update.gender = Data?.gender;
         if (file) {
-            fs.unlink(update.profile_pic.path,(err)=>{
-                if(err){
-                    console.log('File not Delete');
-                }
-                console.log('File Deleted')
-            })
+          
             update.profile_pic.url = imageurl || ''
             update.profile_pic.path=file.path
         }

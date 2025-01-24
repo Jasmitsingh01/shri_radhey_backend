@@ -38,15 +38,7 @@ const updateBlogs=RequestHandler(async (req:Request,res:Response,next:NextFuncti
        if(file){
         const ImageUrl=await UploadImageOnline(file?.path || "")
         if (ImageUrl) {
-            if(updateBLog.thumbnails.path){
-                fs.unlink(updateBLog.thumbnails.path,(err)=>{
-                    if(err){
-                        console.log("File Not be Deleted");
-                    }
-                    console.log("File Is Deleted")
-    
-                })
-            }
+            
             updateBLog.thumbnails.url = ImageUrl;
             updateBLog.thumbnails.path=file.path
         }
