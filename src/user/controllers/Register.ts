@@ -15,7 +15,7 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
         if (!errors.isEmpty()) {
             throw new error("Validation Error", 400);
         }
-        const { name, email, password, role, phone, address, city, state, zip, country } = req.body;
+        const { name, email, password, phone, address, city, state, zip, country } = req.body;
 
 
         // for gentrating otp
@@ -32,7 +32,6 @@ const Register = RequestHandler(async (req: Request, res: Response, next: NextFu
             },
             password,
             empoylee_deatils: {
-                emp_role: role,
                 code_email: otp
             },
             address: {

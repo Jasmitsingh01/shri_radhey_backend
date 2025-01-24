@@ -1,9 +1,13 @@
 
 import transporter from "./mail.config";
+import dotenv from 'dotenv';
+dotenv.config({ 
+    path: '../../.env'
+});
 
  function sendmail(to: string, subject: string, html: string) {
   const mailOptions = {
-    from: 'jasmits007@gmail.com',
+    from: process.env.MAIL ,
     to: to,
     subject: subject,
     html: html,

@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  redis-stack:
+    image: redis/redis-stack:latest
+    container_name: redis-stack
+    ports:
+      - "6379:6379"
+      - "8001:8001" # Redis Stack browser (web UI)
+    environment:
+      - REDIS_ARGS=--save "" --appendonly no
+    restart: unless-stopped
+    networks:
+      - microservices-network
   user_image:
     build: ./src/user/
     container_name: user_container
@@ -8,11 +19,14 @@ services:
       - "9000:9000"
     environment:
       - ENV=development
+    networks:
+      - microservices-network
 
   task_image:
     build: ./src/task/
     container_name: task_container
-    network_mode: "host"
+    networks:
+      - microservices-network
 
     ports:
       - "9001:9001"
@@ -20,28 +34,40 @@ services:
       - ENV=development
 
   field_image:
-     build: ./src/fields/
-     container_name: field_container
-     network_mode: "host"
-     ports:
+    build: ./src/fields/
+    container_name: field_container
+    networks:
+      - microservices-network
+    ports:
       - "9003:9003"
-     environment:
+    environment:
       - ENV=development
-    
+
   client_image:
-     build: ./src/client/
-     container_name: client_container
-     ports:
+    build: ./src/client/
+    container_name: client_container
+    ports:
       - "9002:9002"
-     network_mode: "host"
-     environment:
+    networks:
+      - microservices-network
+    environment:
       - ENV=development
   blog_image:
-     build: ./src/blogs/
-     container_name: blog_container
-     ports:
+    build: ./src/blogs/
+    container_name: blog_container
+    ports:
       - "9004:9004"
-     network_mode: "host"
+   
 
-     environment:
+    environment:
       - ENV=development
+    
+    networks:
+      - microservices-network
+
+
+
+
+networks:
+  microservices-network:
+    driver: bridge
