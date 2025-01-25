@@ -25,7 +25,7 @@ const auth =RequestHandler( async ( req : Request, res :Response, next :NextFunc
      if(!token){
         throw new error('Invaild request',400);
      }
-     const verify= await axios.get('http://127.0.0.1:9000/user',{
+     const verify= await axios.get('http://172.17.0.7:9000/user',{
          headers:{
             'Authorization':`Bearer ${token}`, // Adding authoziation Token TO Headers
          }
