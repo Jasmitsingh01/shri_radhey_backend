@@ -1,10 +1,11 @@
 import multer from "multer";
 import { Request } from "express";
+import path from "path";
 
 
 const StorageOption=multer.diskStorage({
   destination(req, file, callback) {
-     callback(null,'../public/images/blog') // set the destination
+     callback(null,path.join(__dirname,'../public/images/blog')) // set the destination
   },
   filename(req, file, callback) {
     callback(null,Date.now()+file.originalname)

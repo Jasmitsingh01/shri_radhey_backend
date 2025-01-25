@@ -6,14 +6,14 @@ const app = Express();
 app.use(Express.json());
 app.use(Cors(
   {
-    origin: ['http://localhost:3000 ', "http://localhost:8000","https://shriradheymatrimony.in","http://shriradheymatrimony.in"],
+    origin: ["http://localhost:3000", "http://localhost:8000","https://shriradheymatrimony.in","http://shriradheymatrimony.in"],
     credentials: true,
   }
 ));
 // for Sockited.io to user
 
 app.use(
-  "/socket.io", Proxy('http:///0.0.0.0:9000', {
+  "/socket.io", Proxy('http://localhost:9000', {
     proxyReqPathResolver: (req) => req.originalUrl,
     parseReqBody: false,
   }
