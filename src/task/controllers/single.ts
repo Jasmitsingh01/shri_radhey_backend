@@ -9,7 +9,7 @@ const SingleTask = RequestHandler(async (req: Request, res: Response, next: Next
     try {
         const { id } = req.query;
         if (!id) {
-            throw new error('invalid request', 401)
+            throw new error('invalid request', 400)
         }
         const findTask = await Task.findOne({
             $or: [

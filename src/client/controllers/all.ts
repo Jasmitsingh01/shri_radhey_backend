@@ -7,11 +7,11 @@ import { Request, Response, NextFunction } from 'express'
 
 const ALLclient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { page = '1', limit = '10' } = req.query;
+        const { page = '0', limit = '10' } = req.query;
         const skip = parseInt(page as string) * parseInt(limit as string);
         const clientUers = await client.find().sort({ createdAt: -1 }).skip(skip).limit(parseInt(limit as string)).exec();
-        if (client.length <= 0) {
-            throw new error('No client Found', 501);
+        if (clientUers.length <= 0) {
+            throw new error('No client Found', 404);
 
         }
         const response = new ResponseData(clientUers, 200, 'All client Found Successfuly');

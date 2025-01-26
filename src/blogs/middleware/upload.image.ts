@@ -2,7 +2,6 @@ import multer from "multer";
 import { Request } from "express";
 import path from "path";
 
-
 const StorageOption=multer.diskStorage({
   destination(req, file, callback) {
      callback(null,path.join(__dirname,'../public/images/blog')) // set the destination
@@ -25,6 +24,9 @@ const StorageOption=multer.diskStorage({
 
 const upload = multer({
   storage: StorageOption,
+  limits: {
+    fieldSize: 10 * 1024 * 1024, // Increase the field size limit (10MB in this example)
+  },
   fileFilter: fileFilter
 });
 

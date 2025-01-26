@@ -14,7 +14,7 @@ export const Allcountry= RequestHandler(async(req:Request,res:Response,next:Next
     const Location= await country.find();
 
     if(Location.length<=0){
-        throw new error('No Location is Found',401)
+        throw new error('No Location is Found',404)
     }
     
 
@@ -36,7 +36,7 @@ export const Allstate= RequestHandler(async(req:Request,res:Response,next:NextFu
     const Location= await state.find();
 
     if(Location.length<=0){
-        throw new error('No Sate is Found',401)
+        throw new error('No Sate is Found',404)
     }
     
 
@@ -59,7 +59,7 @@ export const Allcity= RequestHandler(async(req:Request,res:Response,next:NextFun
     const Location= await city.find();
 
     if(Location.length<=0){
-        throw new error('No City is Found',401)
+        throw new error('No City is Found',404)
     }
     
 

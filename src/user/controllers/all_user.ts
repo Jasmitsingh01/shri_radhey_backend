@@ -21,7 +21,7 @@ const Userall=RequestHandler( async (req:Request,res:Response,next:NextFunction)
          
         }).sort({ createdAt: -1 }).skip(skip).limit(parseInt(limit as string)).exec()
         if(all.length<=0){
-            throw new error("Failed to Fecth Empolyees",500);
+            throw new error("Failed to Fecth Empolyees",404);
 
 
         }

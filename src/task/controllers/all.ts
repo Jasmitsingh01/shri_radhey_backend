@@ -23,7 +23,7 @@ const ALLTASK = RequestHandler(async (req: Request, res: Response, next: NextFun
             ]
         }) .sort({createdAt:-1}).skip(skip).limit(parseInt(limit as string)).exec() ;
         if (TASK.length <= 0) {
-            throw new error('No Task Found', 501);
+            throw new error('No Task Found', 404);
 
         }
         const response = new ResponseData(TASK, 200, 'All Task Found Successfuly');

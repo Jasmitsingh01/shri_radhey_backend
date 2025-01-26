@@ -17,6 +17,7 @@ import UserallUnApproved from '../controllers/all_unapproved';
 import Create from '../controllers/Create';
 import upload from '../middleware/upload.image';
 import logout from '../controllers/logout';
+import sendTowhatsapp from '../utlis/whatsApp/sendMessageTowhatApp';
 
 const router = express.Router();
 
@@ -47,4 +48,6 @@ router.get('/list-user', auth as any, Userall as any)
 router.get('/unapproved-users', auth as any, UserallUnApproved as any)
 
 router.post('/logout', logout as any)
+
+
 export default router;

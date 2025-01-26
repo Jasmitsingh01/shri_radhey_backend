@@ -14,7 +14,7 @@ export const Allreligion= RequestHandler(async(req:Request,res:Response,next:Nex
     const Ethinicity= await religion.find();
 
     if(Ethinicity.length<=0){
-        throw new error('No religion is Found',401)
+        throw new error('No religion is Found',404)
     }
     
 
@@ -36,7 +36,7 @@ export const Allcaste=RequestHandler(async(req:Request,res:Response,next:NextFun
     const Ethinicity= await caste.find();
 
     if(Ethinicity.length<=0){
-        throw new error('No religion is Found',401)
+        throw new error('No religion is Found',404)
     }
     
 
@@ -58,7 +58,7 @@ export const Allgotra=RequestHandler(async(req:Request,res:Response,next:NextFun
     const Ethinicity= await gotra.find();
 
     if(Ethinicity.length<=0){
-        throw new error('No religion is Found',401)
+        throw new error('No religion is Found',404)
     }
     
 

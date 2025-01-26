@@ -32,7 +32,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
         const response = new ResponseData(error, (error as any).statusCode, (error as any).message)
         if ((error as any).message === 'jwt expired') {
 
-            ResponseHandler(res, response, 403)
+            ResponseHandler(res, response, 401)
         }
         else {
 

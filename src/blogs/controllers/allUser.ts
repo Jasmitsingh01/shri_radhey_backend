@@ -20,7 +20,7 @@ const AllBlogsUSer= RequestHandler(async(req:Request,res:Response,next:NextFunct
     }).sort({createdAt:-1}).skip(skip).limit(parseInt(limit as string)).exec();
 
     if(blogs.length<=0){
-        throw new error('No Blogs is Found',401)
+        throw new error('No Blogs is Found',404)
     }
     
 

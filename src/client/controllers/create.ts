@@ -16,7 +16,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         const { fullname, contact, height, gender, birth, ethinicity, email , fulladdreess, qualification, occupation, member, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income,astrology ,native,sibling,perferance} = req.body;
 
          const file= req.file;
-        if (!fullname?.firstname || !contact?.phone || !email || !height?.value || !gender || !birth?.date || !birth?.place || !birth?.time || !ethinicity?.religion || !ethinicity?.caste || !ethinicity?.gotra || !fulladdreess?.country || !fulladdreess?.state || !fulladdreess?.city || !fulladdreess?.pincode || !astrology?.manglik || !native?.state || !native?.town || !qualification?.qualification || !occupation?.occupation  || !blood_group || !marital_status || !body_type || !complexion || !use_specatils?.use || !family?.father.name || !family?.mother.name || !family?.house_status || !member?.stauts || !member?.expries || !member?.package?.name || !member?.package?.amount_paid || !member?.budget || !member?.source || !meal?.diet || !meal?.smoking || !meal?.drinking || !abroad?.is_willing || !belive_in_patri || !open_for_other_caste || !income?.family || !income?.personal || !file) {
+        if ( !file) {
             throw new error('some fields are missing ', 400)
         }
          const imageurl= await UploadImageOnline((file as any )?.path || '');
@@ -73,7 +73,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 custom: custom ? custom : city + state + country + '-' + pincode,
                 pincode
             },
-            astroligy:astrology,
+            astrology:astrology,
             qualification: {
                 qualification: qualification_name,
                 details: qualification_details,

@@ -6,7 +6,7 @@ const app = Express();
 app.use(Express.json());
 app.use(Cors(
   {
-    origin: ["http://0.0.0.0:3000", "http://localhost:8000","https://shriradheymatrimony.in","http://shriradheymatrimony.in"],
+    origin: ["http://localhost:3000", "http://localhost:8000","https://shriradheymatrimony.in","http://shriradheymatrimony.in"],
     credentials: true,
   }
 ));

@@ -8,7 +8,7 @@ import ResponseData from "./response/responseData";
 import ResponseHandler from "./response/responseHandler";
 const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.refresh_token || req.header('Authorization')?.split('Bearer ')[1];
+        const token = req.cookies.refresh_token || req.headers.authorization?.split('Bearer ')[1];
         if (!token) {
             throw new error("Token not found",400);
         }
@@ -16,7 +16,7 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
 
         const verfiy= jwt.verify(token,process.env.JWT_SECRET_KEY_Refreseh_Token as string);
          if(!verfiy){
-            throw new error('Invalid token',402)
+            throw new error('Invalid token',401)
          }
         const user = await EmpolyeeUser.findById((verfiy as any)._id);
         if (!user) {
@@ -34,7 +34,10 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
             access_token:access_token,
             refresh_token:refresh_token
         });
-        const rsp=new ResponseData(null,200,'Access granted')
+        const rsp=new ResponseData({
+            access_token:access_token,
+            refresh_token:refresh_token
+        },200,'Access granted')
         ResponseHandler(res,rsp,200)
     }
     catch (err) {
@@ -42,7 +45,7 @@ const refresh_Token = RequestHandler(async (req: Request, res: Response) => {
         const rsp=new ResponseData(null,(err as any).statusCode,(err as any).message)
 
         if((err as any).message === 'jwt expired'){
-        ResponseHandler(res,rsp,402)
+        ResponseHandler(res,rsp,401)
         }
         else{
 
