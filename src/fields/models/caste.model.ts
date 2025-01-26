@@ -1,12 +1,7 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const casteModel = new Schema({
 
-    religion:{
-        type:Types.ObjectId,
-        ref:"religion",
-        reqiure:true,
-    },
     caste: {
         type: String,
         reqiure:true,

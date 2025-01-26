@@ -20,18 +20,8 @@ export const delreligion=RequestHandler(async(req:Request,res:Response , next:Ne
         }
 
         const delBody= await religion.findByIdAndDelete(_id);
-        const delcaste= await caste.deleteMany({
-            religion:_id
-        })
-        const delgotra= await gotra.deleteMany({
-            religion:_id
-        })
-        if(!delcaste){
-            throw new error("Failed To Delete ethinicity",500)
-        }
-        if(!delgotra){
-            throw new error("Failed To Delete ethinicity",500)
-        }
+      
+       
 
         if(!delBody){
             throw new error("Failed To Delete ethinicity",500)
@@ -63,12 +53,7 @@ export const delcaste=RequestHandler(async(req:Request,res:Response , next:NextF
         }
 
         const delBody= await caste.findByIdAndDelete(_id);
-        const delgotra= await gotra.deleteMany({
-            caste:_id
-        })
-        if(!delgotra){
-            throw new error("Failed To Delete ethinicity",500)
-        }
+       
         if(!delBody){
             throw new error("Failed To Delete ethinicity",500)
         }

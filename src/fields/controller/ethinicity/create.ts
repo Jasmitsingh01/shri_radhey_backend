@@ -43,14 +43,13 @@ export  const CreateCaste=RequestHandler(async(req:Request,res:Response , next:N
 
 
     try {
-        const {ethinicity:{religion,caste:data}}=req.body;
-        if(!religion || !data){
+        const {ethinicity:{caste:data}}=req.body;
+        if( !data){
             throw new error('Please Provide Data to create',400)
         }
 
         const newType= new caste({
             caste:data,
-            religion:religion
         });
         const save= await newType.save()
         if(!save){
@@ -75,13 +74,12 @@ export  const CreateGotra=RequestHandler(async(req:Request,res:Response , next:N
 
 
     try {
-        const {ethinicity:{religion,caste,gotra:data}}=req.body;
-        if(!religion || !caste || !data){
+        const {ethinicity:{gotra:data}}=req.body;
+        if(  !data){
             throw new error('Please Provide Data to create',400)
         }
         const newType= new gotra({
-            caste,
-            religion,
+       
             gotra:data
         })
 
