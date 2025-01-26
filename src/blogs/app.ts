@@ -1,11 +1,12 @@
-import Exprees from 'express'
+import exprees from 'express'
 import cookiePaser from 'cookie-parser'
 import router from './routes/Index';
 
-const app=Exprees();
-app.use(Exprees.json());
+const app = exprees();
+app.use(exprees.json({ limit: '10mb' })); // Increase limit to 10MB
+app.use(exprees.urlencoded({ limit: '10mb', extended: true })); 
 app.use(cookiePaser())
 
-app.use('/',router)
+app.use('/', router)
 
 export default app;
