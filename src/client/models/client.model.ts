@@ -169,19 +169,19 @@ const clientModel = new Schema({
         phone: {
             type: String,
 
-            unique: true,
+     
 
 
         },
         whatsaap_number: {
             type: String,
-            unique: true,
+     
 
         },
         email: {
             type: String,
 
-            unique: true,
+     
 
         },
     },
