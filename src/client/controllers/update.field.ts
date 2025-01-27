@@ -14,11 +14,16 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         const data = req.body;
         const id = req.query.id
         const file = req.file
+      
+        if (!id) {
+            throw new error('Invaild request', 400)
+        }
+        if (!data) {
+            throw new error('Please Provide filed to update', 400)
+        }
+
         const { fullname, contact, height, gender, birth, ethinicity, email, fulladdreess, qualification, occupation, member, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income, astrology, native, sibling, perferance } = req.body;
 
-        if (!fullname?.firstname || !contact?.phone || !email || !height?.value || !gender || !birth?.date || !birth?.place || !birth?.time || !ethinicity?.religion || !ethinicity?.caste || !ethinicity?.gotra || !fulladdreess?.country || !fulladdreess?.state || !fulladdreess?.city || !fulladdreess?.pincode || !astrology?.manglik || !native?.state || !native?.town || !qualification?.qualification || !occupation?.occupation || !blood_group || !marital_status || !body_type || !complexion || !use_specatils?.use || !family?.father.name || !family?.mother.name || !family?.house_status || !member?.stauts || !member?.expries || !member?.package?.name || !member?.package?.amount_paid || !member?.budget || !member?.source || !meal?.diet || !meal?.smoking || !meal?.drinking || !abroad?.is_willing || !belive_in_patri || !open_for_other_caste || !income?.family || !income?.personal) {
-            throw new error('some fields are missing ', 400)
-        }
         
         const { firstname, lastname } = fullname;
         const { phone, whatsaap_number } = contact;
@@ -34,12 +39,6 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         const { diet, smoking, drinking } = meal;
         const { is_willing, mention_country } = abroad;
         const { family: family_income, personal: personal_income } = income;
-        if (!id) {
-            throw new error('Invaild request', 400)
-        }
-        if (!data) {
-            throw new error('Please Provide filed to update', 400)
-        }
         const updateClient = await client.findById(id)
         if (!updateClient) {
             throw new error('Failed to update Client', 500);
