@@ -99,7 +99,7 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         updateClient.income.family = family_income;
         updateClient.income.personal = personal_income;
         updateClient.perferance = perferance;
-        updateClient.astrology = astrology;
+        updateClient.astroligy = astrology;
         if (file) {
   
                

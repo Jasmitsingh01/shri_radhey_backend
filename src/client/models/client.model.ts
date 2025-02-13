@@ -95,7 +95,7 @@ interface IClient {
         ]
     };
 
-    astrology: {
+    astroligy: {
         manglik: string
     };
     meal: {
@@ -201,7 +201,7 @@ const clientModel = new Schema({
 
 
     },
-    astrology: {
+    astroligy: {
         manglik: {
             type: String,
 

@@ -73,7 +73,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 custom: custom ? custom : city + state + country + '-' + pincode,
                 pincode
             },
-            astrology:astrology,
+            astroligy:astrology,
             qualification: {
                 qualification: qualification_name,
                 details: qualification_details,
