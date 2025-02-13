@@ -105,7 +105,7 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
                
              const imageurl = await UploadImageOnline(file?.path || "")
              if(imageurl){
-                updateClient.profile_image=file.path
+                updateClient.profile_image=imageurl
              }
                 
             
