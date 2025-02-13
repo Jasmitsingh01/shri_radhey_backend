@@ -93,10 +93,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 source
 
             },
-            profile_image:{
-                url:imageurl,
-                path:file?.path
-            },
+            profile_image:imageurl,
             disablitiy,
             blood_group,
             marital_status,

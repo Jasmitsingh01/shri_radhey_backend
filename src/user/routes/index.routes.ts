@@ -17,7 +17,7 @@ import UserallUnApproved from '../controllers/all_unapproved';
 import Create from '../controllers/Create';
 import upload from '../middleware/upload.image';
 import logout from '../controllers/logout';
-import sendTowhatsapp from '../utlis/whatsApp/sendMessageTowhatApp';
+// import sendTowhatsapp from '../utlis/whatsApp/sendMessageTowhatApp';
 
 const router = express.Router();
 

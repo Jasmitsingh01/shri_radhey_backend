@@ -5,7 +5,6 @@ import ResponseHandler from "../utlis/response/responseHandler";
 import client from "../models/client.model";
 import { Request, Response, NextFunction } from 'express'
 import UploadImageOnline from "../utlis/cloudnairy";
-import fs from 'fs'
 
 
 const updateField = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -102,15 +101,14 @@ const updateField = RequestHandler(async (req: Request, res: Response, next: Nex
         updateClient.perferance = perferance;
         updateClient.astrology = astrology;
         if (file) {
-            if (updateClient.profile_image) {
+  
                
              const imageurl = await UploadImageOnline(file?.path || "")
              if(imageurl){
-                updateClient.profile_image.url = imageurl || "";
-                updateClient.profile_image.path=file.path
+                updateClient.profile_image=file.path
              }
                 
-            }
+            
         }
 
         const save = await updateClient.save({

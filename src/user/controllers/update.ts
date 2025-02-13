@@ -2,11 +2,9 @@ import EmpolyeeUser from "../models/user.model";
 import { NextFunction, Request, Response } from "express";
 import RequestHandler from "../utlis/request/requestHandler";
 import error from "../utlis/error/Error";
-import { validationResult } from "express-validator";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
 import UploadImageOnline from "../utlis/cloudnairy";
-import fs from 'fs'
 
 const Userupdate = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -18,26 +16,25 @@ const Userupdate = RequestHandler(async (req: Request, res: Response, next: Next
             throw new error('Invalid Request', 400)
         }
         const file = req.file;
-
-        let imageurl;
-        if (file) {
-            imageurl = await UploadImageOnline(file?.path || '')
-        }
-
         const update = await EmpolyeeUser.findById(user?._id)
         if (!update) {
             throw new error("Failed to update Empolyee", 500);
         }
+
+
+        if (file) {
+            const imageurl = await UploadImageOnline(file?.path || '')
+            if (imageurl) {
+                update.profile_pic = imageurl
+            }
+        }
+
         update.fullname.firstName = Data?.fullname?.fullname?.split(' ')[0];
         update.fullname.lastName = Data?.fullname?.fullname?.split(' ')[1];
         update.contact_Details.email = Data?.contact?.email;
         update.contact_Details.phone = Data?.contact?.phone;
         update.gender = Data?.gender;
-        if (file) {
-          
-            update.profile_pic.url = imageurl || ''
-            update.profile_pic.path=file.path
-        }
+
         update.address.fulladdress = Data?.address
 
         const save = await update.save({
