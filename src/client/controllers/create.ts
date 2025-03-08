@@ -16,10 +16,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         const { fullname, contact, height, gender, birth, ethinicity, email , fulladdreess, qualification, occupation, member, disablitiy, blood_group, marital_status, body_type, complexion, use_specatils, family, meal, abroad, belive_in_patri, open_for_other_caste, income,astrology ,native,sibling,perferance} = req.body;
 
          const file= req.file;
-        if ( !file) {
-            throw new error('some fields are missing ', 400)
-        }
-         const imageurl= await UploadImageOnline((file as any )?.path || '');
+        
         const { firstname, lastname } = fullname;
         const { phone, whatsaap_number } = contact;
         const { value, unit } = height;
@@ -29,7 +26,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         const { qualification: qualification_name, details: qualification_details } = qualification;
         const { occupation: occupation_name, details: occupation_details } = occupation;
         const { use, power } = use_specatils;
-        const { father: { name: father_name, occupation: father_occupation }, mother: { name: mother_name, occupation: mother_occupation }, type, number_of_member ,house_status} = family
+        const { father: { name: father_name, occupation: father_occupation ,occupation_Details:father_occupation_detalis }, mother: { name: mother_name, occupation: mother_occupation ,occupation_Details:mother_occupation_detalis}, type, number_of_member ,house_status} = family
         const { stauts, expries, package: { name: package_name, amount_paid }, budget, source } = member;
         const { diet, smoking, drinking } = meal;
         const { is_willing, mention_country } = abroad;
@@ -93,7 +90,6 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 source
 
             },
-            profile_image:imageurl,
             disablitiy,
             blood_group,
             marital_status,
@@ -107,10 +103,12 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 father: {
                     name: father_name,
                     occupation: father_occupation,
+                    occupation_Details:father_occupation_detalis
                 },
                 mother: {
                     name: mother_name,
                     occupation: mother_occupation,
+                    occupation_Details:mother_occupation_detalis
                 },
                 type,
                 number_of_member,
@@ -136,6 +134,14 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
 
 
         })
+        if ( file) {
+            const imageurl= await UploadImageOnline((file as any )?.path || '');
+             if(!imageurl){
+                throw new error('failed to upload image',500)
+             }
+            NewClient.profile_image = imageurl;
+
+        }
 
         const saveClient = await NewClient.save();
 
