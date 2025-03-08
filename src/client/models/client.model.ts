@@ -112,8 +112,8 @@ interface IClient {
     belive_in_patri: boolean;
     open_for_other_caste: boolean;
     income: {
-        family: number;
-        personal: number;
+        family: string;
+        personal: string;
     };
 }
 const clientModel = new Schema({
@@ -472,13 +472,13 @@ const clientModel = new Schema({
     },
     income: {
         family: {
-            type: Number,
+            type: String,
 
 
 
         },
         personal: {
-            type: Number,
+            type: String,
 
 
 
