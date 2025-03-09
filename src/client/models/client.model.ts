@@ -64,7 +64,7 @@ interface IClient {
             occupation?: string;
             occupation_Details?:string
         };
-        type: string;
+        details: string;
         number_of_member?: number;
         house_status?: string;
     };
@@ -374,7 +374,7 @@ const clientModel = new Schema({
                 type: String
             }
         },
-        type: {
+        details: {
             type: String,
 
 

@@ -26,7 +26,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         const { qualification: qualification_name, details: qualification_details } = qualification;
         const { occupation: occupation_name, details: occupation_details } = occupation;
         const { use, power } = use_specatils;
-        const { father: { name: father_name, occupation: father_occupation ,occupation_Details:father_occupation_detalis }, mother: { name: mother_name, occupation: mother_occupation ,occupation_Details:mother_occupation_detalis}, type, number_of_member ,house_status} = family
+        const { father: { name: father_name, occupation: father_occupation ,occupation_Details:father_occupation_detalis }, mother: { name: mother_name, occupation: mother_occupation ,occupation_Details:mother_occupation_detalis}, details, number_of_member ,house_status} = family
         const { stauts, expries, package: { name: package_name, amount_paid }, budget, source } = member;
         const { diet, smoking, drinking } = meal;
         const { is_willing, mention_country } = abroad;
@@ -110,7 +110,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                     occupation: mother_occupation,
                     occupation_Details:mother_occupation_detalis
                 },
-                type,
+                details,
                 number_of_member,
                 house_status:house_status
             },
