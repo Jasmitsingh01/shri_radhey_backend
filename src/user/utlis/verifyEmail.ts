@@ -22,7 +22,7 @@ const VeryfyEmail = RequestHandler(async (req: Request, res: Response) => {
         }
         user.empoylee_deatils.is_verfied_email = true;
         user.empoylee_deatils.code_email='';
-        await user.save();
+        await user.save({validateBeforeSave:false});
         const Data = new ResponseData(user, 200, 'Email Verified');
         ResponseHandler(res, Data, 200);
     } catch (error) {

@@ -26,7 +26,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
          throw new error('Invaild request', 400);
       }
       try {
-         const verify = await axios.get('http://user_container:9000/user', {
+         const verify = await axios.get('http://localhost:9000/user', {
             headers: {
                'Authorization': `Bearer ${token}`, // Adding authoziation Token TO Headers
             },
@@ -43,7 +43,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
                throw new error('Access Deined', 401)
             }
             try {
-               const refreshing = await axios.patch('http://user_container:9000/refresh-token', {}, {
+               const refreshing = await axios.patch('http://localhost:9000/refresh-token', {}, {
                   headers: {
                      'Authorization': `Bearer ${refreshToken}`,
                   }
@@ -56,7 +56,7 @@ const auth = RequestHandler(async (req: Request, res: Response, next: NextFuncti
                   throw new error('Invaild request', 402)
 
                }
-               const verify = await axios.get('http://user_container:9000/user', {
+               const verify = await axios.get('http://localhost:9000/user', {
                   headers: {
                      'Authorization': `Bearer ${newToken}`, // Adding authoziation Token TO Headers
                   },
