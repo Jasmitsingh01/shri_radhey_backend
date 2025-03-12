@@ -33,66 +33,66 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
         const { family: family_income, personal: personal_income } = income;
 
 
-        const ExitsClient = await client.find({
-            $and: [{
-                "fullname.firstname": firstname,
-                "fullname.lastname": lastname,
-                "contact.phone": phone,
-                "contact.whatsaap_number": whatsaap_number,
-                "contact.email": email,
-                "height.value": value,
-                "height.unit": unit,
-                gender: gender,
-                "birth.date": date,
-                "birth.place": place,
-                "birth.time": time,
-                preferences: perferance, // Corrected spelling
-                "ethinicity.religion": religion,
-                "ethinicity.caste": caste,
-                "ethinicity.gotra": gotra,
-                "fulladdreess.country": country,
-                "fulladdreess.state": state,
-                "fulladdreess.city": city,
-                "fulladdreess.pincode": pincode,
-                "fulladdreess.custom": custom ? custom : `${city || ''}${state || ''}${country || ''}-${pincode || ''}`,
-                astrology: astrology, // Corrected spelling
-                "qualification.qualification": qualification_name,
-                "qualification.details": qualification_details,
-                "occupation.occupation": occupation_name,
-                "occupation.details": occupation_details,
-                "member.stauts": stauts,
-                "member.expires_member": expries, // Corrected spelling
-                "member.package.name": package_name,
-                "member.package.amount_paid": amount_paid,
-                "member.budget": budget,
-                "member.source": source,
-                disability: disablitiy, // Corrected spelling
-                blood_group: blood_group,
-                marital_status: marital_status,
-                complexion: complexion,
-                body_type: body_type,
-                "family.father.name": father_name,
-                "family.father.occupation": father_occupation,
-                "family.father.occupation_Details": father_occupation_detalis, // Corrected spelling
-                "family.mother.name": mother_name,
-                "family.mother.occupation": mother_occupation,
-                "family.mother.occupation_Details": mother_occupation_detalis, // Corrected spelling
-                "family.details": details,
-                "family.number_of_member": number_of_member,
-                "family.house_status": house_status,
-                native: native,
-                siblings_details: sibling,
-                "meal.diet": diet,
-                "meal.smoking": smoking,
-                "meal.drinking": drinking,
-                "income.family": family_income,
-                "income.personal": personal_income,
-            }]
-        });
+        // const ExitsClient = await client.find({
+        //     $and: [{
+        //         "fullname.firstname": firstname,
+        //         "fullname.lastname": lastname,
+        //         "contact.phone": phone,
+        //         "contact.whatsaap_number": whatsaap_number,
+        //         "contact.email": email,
+        //         "height.value": value,
+        //         "height.unit": unit,
+        //         gender: gender,
+        //         "birth.date": date,
+        //         "birth.place": place,
+        //         "birth.time": time,
+        //         preferences: perferance, // Corrected spelling
+        //         "ethinicity.religion": religion,
+        //         "ethinicity.caste": caste,
+        //         "ethinicity.gotra": gotra,
+        //         "fulladdreess.country": country,
+        //         "fulladdreess.state": state,
+        //         "fulladdreess.city": city,
+        //         "fulladdreess.pincode": pincode,
+        //         "fulladdreess.custom": custom ? custom : `${city || ''}${state || ''}${country || ''}-${pincode || ''}`,
+        //         astrology: astrology, // Corrected spelling
+        //         "qualification.qualification": qualification_name,
+        //         "qualification.details": qualification_details,
+        //         "occupation.occupation": occupation_name,
+        //         "occupation.details": occupation_details,
+        //         "member.stauts": stauts,
+        //         "member.expires_member": expries, // Corrected spelling
+        //         "member.package.name": package_name,
+        //         "member.package.amount_paid": amount_paid,
+        //         "member.budget": budget,
+        //         "member.source": source,
+        //         disability: disablitiy, // Corrected spelling
+        //         blood_group: blood_group,
+        //         marital_status: marital_status,
+        //         complexion: complexion,
+        //         body_type: body_type,
+        //         "family.father.name": father_name,
+        //         "family.father.occupation": father_occupation,
+        //         "family.father.occupation_Details": father_occupation_detalis, // Corrected spelling
+        //         "family.mother.name": mother_name,
+        //         "family.mother.occupation": mother_occupation,
+        //         "family.mother.occupation_Details": mother_occupation_detalis, // Corrected spelling
+        //         "family.details": details,
+        //         "family.number_of_member": number_of_member,
+        //         "family.house_status": house_status,
+        //         native: native,
+        //         siblings_details: sibling,
+        //         "meal.diet": diet,
+        //         "meal.smoking": smoking,
+        //         "meal.drinking": drinking,
+        //         "income.family": family_income,
+        //         "income.personal": personal_income,
+        //     }]
+        // });
 
-        if (ExitsClient) {
-            throw new error('Client Already Extis', 400)
-        }
+        // if (ExitsClient) {
+        //     throw new error('Client Already Extis', 400)
+        // }
 
 
         const NewClient = new client({
