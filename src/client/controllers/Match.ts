@@ -1,4 +1,4 @@
-import error from "../utlis/error/Error";
+import Error from "../utlis/error/Error";
 import RequestHandler from "../utlis/request/requestHandler";
 import ResponseData from "../utlis/response/responseData";
 import ResponseHandler from "../utlis/response/responseHandler";
@@ -11,12 +11,13 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
         const query = req.query;
 
         const { ethinicity, qualification, occupation, meal, member, gender, complexion, body_type, marital_status } = req.body;
+       
         if ((!ethinicity && !qualification && !occupation && !meal && !member && !gender && !complexion && !body_type && !marital_status) ) {
-            throw new error('All fields are required', 400)
+            throw new Error('All fields are required', 400)
         }
 
         if (!query) {
-            throw new error('Query is required', 400);
+            throw new Error('Query is required', 400);
         }
 
 
@@ -27,17 +28,18 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
                 { occupation: occupation },
                 { meal: meal },
                 { member: member },
-                { gender: gender },
                 { complexion: complexion },
                 { body_type: body_type },
                 { marital_status: marital_status }
             ],
+             gender: gender ,
+
             
 
 
         });
         if (!clients) {
-            throw new error('No client found', 404);
+            throw new Error('No client found', 404);
         }
         const response = new ResponseData(clients, 200, 'Clients found');
         ResponseHandler(res, response, 200);
