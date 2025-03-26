@@ -12,6 +12,7 @@ import delClient from '../controllers/delete';
 import upload from '../middleware/ImageSaver';
 import FindClient from '../controllers/find';
 import SimilarClient from '../controllers/Match';
+import SendBIODATA from '../controllers/sendBiodata';
 
 
 const  router = Express.Router();
@@ -29,5 +30,5 @@ router.get('/client/:id', auth as any, FindClient as any);
 
 router.post('/match-client', auth as any, SimilarClient as any);
 
-
+router.post('/send-bio-data',auth as any , SendBIODATA as any)
 export  default router;

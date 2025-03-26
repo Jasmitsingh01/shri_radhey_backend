@@ -14,14 +14,12 @@ cloudinary.config({
 
 async function UploadImageOnline(file_Path:string){
   try {
-    const upload= await cloudinary.uploader.upload(file_Path,{
-        public_id:"user"
-    })
+    const upload= await cloudinary.uploader.upload(file_Path)
     if(!upload){
         throw new error("file is not Uploaded Online",500);
     }
     console.log(upload.secure_url)
-    return upload.url
+    return upload.secure_url
   } catch (error) {
     console.error(error);
   }

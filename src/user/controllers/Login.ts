@@ -7,6 +7,7 @@ import GenrateToken from "../utlis/genrateToken";
 import { validationResult } from "express-validator";
 import error from "../utlis/error/Error";
 import sendmail from "../utlis/mailing/sendmail";
+import sendTowhatsapp from "../utlis/whatsApp/sendMessageTowhatApp";
 import fs from 'fs';
 import path from "path";
 const Login = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -44,7 +45,7 @@ const Login = RequestHandler(async (req: Request, res: Response, next: NextFunct
             }
             else {
                 const HTMLTEMPLATE = data.toString().replace('<li id="Name"><strong>Name:</strong> {{userName}}</li>', `<li id='Name'><strong>Name :</strong>${user.fullname.firstName + " " + user.fullname.lastName}</li>`).replace('<li id="Email"><strong>Email:</strong> {{userEmail}}</li>', `<li id="Email"><strong>Email:</strong> ${user.contact_Details.email}</li>`).replace('<li id="Time"><strong>Login Time:</strong> {{loginTime}}</li>', `<li id="Time"><strong>Login Time:</strong> ${new Date().toTimeString()}</li>`).replace('<li id="Code"><strong>Login Code:</strong> {{loginCode}}</li>',`<li id="Code"><strong>Login Code:</strong> ${otp}</li>`)
-                sendmail('info.shriradhey.service@gmail.com', `Verification Code for Empoylee ${user.fullname.firstName + ' ' + user.fullname.lastName}`, HTMLTEMPLATE)
+                sendTowhatsapp( `Verification Code for Empoylee ${user.fullname.firstName + ' ' + user.fullname.lastName} Login Code: ${otp}`,'+919818864821')
             }
         })
         req.user = user;

@@ -1,6 +1,5 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 interface IClient {
-    score?: number; // Add the score property
 
     fullname: {
         firstname: string;
@@ -115,6 +114,7 @@ interface IClient {
         family: string;
         personal: string;
     };
+    Macth_Profiles:[IClient]
 }
 const clientModel = new Schema({
     fullname: {
@@ -484,6 +484,10 @@ const clientModel = new Schema({
 
         },
     },
+    Macth_Profiles:{
+        type:[mongoose.Types.ObjectId],
+        ref:'clients'
+    }
 }
     ,
     {

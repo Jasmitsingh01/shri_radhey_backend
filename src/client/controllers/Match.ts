@@ -41,6 +41,7 @@ const SimilarClient = RequestHandler(async (req: Request, res: Response, next: N
         if (!clients) {
             throw new Error('No client found', 404);
         }
+        
         const response = new ResponseData(clients, 200, 'Clients found');
         ResponseHandler(res, response, 200);
     }

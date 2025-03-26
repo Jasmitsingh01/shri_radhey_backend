@@ -9,7 +9,6 @@ import mongoose from "mongoose";
 const FindClient = RequestHandler(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        console.log(id,'SSS');
         if (!id) {
             throw new error('id is required', 400)
         }
