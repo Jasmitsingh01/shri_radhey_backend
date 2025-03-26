@@ -125,7 +125,7 @@ const CreateClient = RequestHandler(async (req: Request, res: Response, next: Ne
                 country,
                 state,
                 city,
-                custom: custom ? custom : city + state + country + '-' + pincode,
+                custom: custom ,
                 pincode
             },
             astroligy: astrology,
